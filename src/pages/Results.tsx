@@ -1,0 +1,367 @@
+import { useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
+import { TrendingUp, Award, Users, Target } from "lucide-react";
+
+/* ═══════════════ LIGHT FIELD PALETTE (EWO) ═══════════════ */
+const c = {
+  bg: "#F6FAF8",
+  card: "#FFFFFF",
+  border: "#CFE8DC",
+  borderLight: "#E2F0EA",
+  text: "#07101A",
+  textDeep: "#0D1B2B",
+  textSoft: "#162636",
+  muted: "#5E8B7A",
+  emDeep: "#064E3B",
+  emMid: "#047857",
+  emerald: "#059669",
+  emVivid: "#10B981",
+  emLight: "#6EE7B7",
+  emPale: "#A7F3D0",
+  emGhost: "#D1FAE5",
+  emFaint: "#ECFDF5",
+  mal: "#2D9A5E",
+  malLight: "#4ADE80",
+  malPale: "#BBF7D0",
+  cobalt: "#2563EB",
+  cobaltSoft: "#93C5FD",
+  cobaltPale: "#DBEAFE",
+  violet: "#7C3AED",
+  violetSoft: "#A78BFA",
+  violetPale: "#EDE9FE",
+  grad: "linear-gradient(90deg, #7C3AED, #2563EB, #0D9488, #059669, #2D9A5E)",
+};
+
+const stats = [
+  { number: "150+", label: "Average SAT Point Gain", icon: <TrendingUp size={24} /> },
+  { number: "4+", label: "Average ACT Composite Gain", icon: <Award size={24} /> },
+  { number: "94%", label: "Families Report Improved Confidence", icon: <Users size={24} /> },
+  { number: "15+", label: "TOC Bids in Debate", icon: <Target size={24} /> },
+];
+
+const testimonials = [
+  {
+    quote: "My son went from a 1240 to a 1510 on the SAT. But more importantly, he actually understands the material now. He's not just test-taking, he's thinking.",
+    name: "Sarah M.",
+    meta: "Parent, Sugar Land, TX",
+    course: "SAT Mastery",
+    result: "270-point improvement",
+  },
+  {
+    quote: "The debate program changed my daughter's trajectory. She went from a shy student to a confident speaker who can structure an argument in real-time. College admissions noticed.",
+    name: "Dr. James R.",
+    meta: "Parent, Memorial, Houston",
+    course: "Competitive Debate (LD)",
+    result: "TOC qualifier, top 10 nationally",
+  },
+  {
+    quote: "I've worked with tutors before. This is different. Michael diagnosed my daughter's actual learning block in the first session. Six months later, she's a different student.",
+    name: "Lisa T.",
+    meta: "Parent, West University, Houston",
+    course: "Executive Function Coaching",
+    result: "3.2 to 3.9 GPA in one semester",
+  },
+  {
+    quote: "The LSAT course was incredible. I went from a 158 diagnostic to a 172 on test day. The cognition-based approach actually works — it's not hype.",
+    name: "David K.",
+    meta: "Rice University, Houston",
+    course: "NeuroLSAT",
+    result: "172 LSAT (14-point improvement)",
+  },
+  {
+    quote: "My son has ADHD and we've tried every tutor in Houston. Michael was the first one who actually understood how his brain works. The executive function coaching has been transformative.",
+    name: "Rachel P.",
+    meta: "Parent, Bellaire, Houston",
+    course: "Executive Function Coaching",
+    result: "Organized, focused, thriving",
+  },
+  {
+    quote: "The college admissions strategy was worth every penny. My daughter got into her dream school (Columbia ED) and the essay work was the difference maker.",
+    name: "Michael C.",
+    meta: "Parent, Sugar Land, TX",
+    course: "College Admissions Strategy",
+    result: "Accepted to Columbia University",
+  },
+];
+
+const outcomes = [
+  { metric: "270", unit: "points", desc: "Largest SAT improvement", color: c.cobalt },
+  { metric: "14", unit: "points", desc: "Largest LSAT improvement", color: c.emerald },
+  { metric: "3.2→3.9", unit: "GPA", desc: "Biggest GPA turnaround", color: c.mal },
+  { metric: "Top 10", unit: "national", desc: "Debate ranking achieved", color: c.violet },
+];
+
+export default function Results() {
+  const revealRefs = useRef<HTMLDivElement[]>([]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+    );
+
+    revealRefs.current.forEach((el) => {
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const addRevealRef = (el: HTMLDivElement | null) => {
+    if (el && !revealRefs.current.includes(el)) {
+      revealRefs.current.push(el);
+    }
+  };
+
+  return (
+    <div style={{ paddingTop: "72px", background: c.bg }}>
+      {/* ═══════════════ HEADER ═══════════════ */}
+      <section className="section text-center" style={{ background: c.bg }}>
+        <div className="container">
+          <p
+            className="eyebrow mb-4"
+            style={{
+              fontFamily: "var(--font-ui)",
+              fontWeight: 600,
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              color: c.emMid,
+              fontSize: "11px",
+            }}
+          >
+            Results
+          </p>
+          <h1
+            style={{
+              fontFamily: "var(--font-display)",
+              fontWeight: 300,
+              color: c.text,
+              fontSize: "clamp(2.2rem, 5vw, 3.625rem)",
+            }}
+          >
+            The numbers and the{" "}
+            <em style={{ color: c.emerald }}>stories</em>{" "}
+            behind them.
+          </h1>
+          <p
+            className="max-w-2xl mx-auto mt-4"
+            style={{ color: c.muted, fontSize: "15px", lineHeight: 1.7 }}
+          >
+            Every result below is a real student, a real transformation, and a real
+            family who trusted Kuriausity with their student's potential.
+          </p>
+        </div>
+      </section>
+
+      {/* ═══════════════ STATS BAR ═══════════════ */}
+      <section className="py-12 relative overflow-hidden" style={{ background: c.emFaint }}>
+        {/* Malachite texture — faint */}
+        <div className="absolute inset-0 bg-cover bg-center opacity-[0.06]" style={{ backgroundImage: "url(/images/malachite.jpg)" }} />
+        <div className="absolute inset-0" style={{ background: `linear-gradient(to right, ${c.emFaint} 0%, transparent 25%, transparent 75%, ${c.emFaint} 100%)` }} />
+        <div className="absolute inset-0" style={{ background: `linear-gradient(to bottom, ${c.emFaint} 0%, transparent 15%, transparent 85%, ${c.emFaint} 100%)` }} />
+
+        <div className="container relative z-10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {stats.map((stat, i) => (
+              <div
+                key={i}
+                ref={addRevealRef}
+                className="reveal text-center p-6 rounded-[10px]"
+                style={{
+                  background: c.card,
+                  border: `1px solid ${c.borderLight}`,
+                  boxShadow: "0 1px 4px rgba(5,150,105,0.06), 0 4px 20px rgba(5,150,105,0.04)",
+                }}
+              >
+                <div
+                  className="inline-flex items-center justify-center w-12 h-12 rounded-full mb-4"
+                  style={{ background: c.emGhost, color: c.emerald }}
+                >
+                  {stat.icon}
+                </div>
+                <p
+                  className="text-3xl font-bold mb-1"
+                  style={{ fontFamily: "var(--font-mono)", color: c.cobalt }}
+                >
+                  {stat.number}
+                </p>
+                <p
+                  className="text-xs uppercase tracking-wider"
+                  style={{ fontFamily: "var(--font-ui)", color: c.muted }}
+                >
+                  {stat.label}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════ OUTCOME HIGHLIGHTS ═══════════════ */}
+      <section className="section relative overflow-hidden" style={{ background: c.bg }}>
+        {/* Rice aerial — very faint */}
+        <div className="absolute inset-0 bg-cover bg-center opacity-[0.05]" style={{ backgroundImage: "url(/images/rice-aerial.jpg)" }} />
+        <div className="absolute inset-0" style={{ background: `linear-gradient(to right, ${c.bg} 0%, transparent 25%, transparent 75%, ${c.bg} 100%)` }} />
+        <div className="absolute inset-0" style={{ background: `linear-gradient(to bottom, ${c.bg} 0%, transparent 15%, transparent 85%, ${c.bg} 100%)` }} />
+
+        <div className="container relative z-10">
+          <div ref={addRevealRef} className="reveal text-center mb-12">
+            <p
+              className="mb-4"
+              style={{
+                fontFamily: "var(--font-ui)",
+                fontWeight: 600,
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                color: c.emMid,
+                fontSize: "11px",
+              }}
+            >
+              Standout Outcomes
+            </p>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 400, color: c.textSoft }}>
+              Real numbers from{" "}
+              <em style={{ color: c.emerald }}>real students</em>.
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {outcomes.map((out, i) => (
+              <div
+                key={i}
+                ref={addRevealRef}
+                className="reveal text-center p-8 rounded-[10px]"
+                style={{
+                  background: c.card,
+                  border: `1px solid ${c.borderLight}`,
+                  boxShadow: "0 1px 4px rgba(5,150,105,0.06), 0 4px 20px rgba(5,150,105,0.04)",
+                }}
+              >
+                <p className="text-4xl font-bold mb-1" style={{ fontFamily: "var(--font-mono)", color: out.color }}>
+                  {out.metric}
+                </p>
+                <p className="text-xs uppercase tracking-wider mb-2" style={{ fontFamily: "var(--font-ui)", color: c.muted }}>
+                  {out.unit}
+                </p>
+                <p className="text-sm" style={{ color: c.muted }}>
+                  {out.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════ TESTIMONIALS ═══════════════ */}
+      <section className="section relative overflow-hidden" style={{ background: c.emFaint }}>
+        {/* Dark library — very faint */}
+        <div className="absolute inset-0 bg-cover bg-center opacity-[0.04]" style={{ backgroundImage: "url(/images/dark-library.jpg)" }} />
+        <div className="absolute inset-0" style={{ background: `linear-gradient(to right, ${c.emFaint} 0%, transparent 25%, transparent 75%, ${c.emFaint} 100%)` }} />
+        <div className="absolute inset-0" style={{ background: `linear-gradient(to bottom, ${c.emFaint} 0%, transparent 15%, transparent 85%, ${c.emFaint} 100%)` }} />
+
+        <div className="container relative z-10">
+          <div ref={addRevealRef} className="reveal text-center mb-12">
+            <p
+              className="mb-4"
+              style={{
+                fontFamily: "var(--font-ui)",
+                fontWeight: 600,
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                color: c.emMid,
+                fontSize: "11px",
+              }}
+            >
+              What Families Say
+            </p>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 400, color: c.textSoft }}>
+              Real families. Real{" "}
+              <em style={{ color: c.emerald }}>transformations</em>.
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {testimonials.map((t, i) => (
+              <div
+                key={i}
+                ref={addRevealRef}
+                className="reveal p-6 rounded-[10px] relative"
+                style={{
+                  background: c.card,
+                  border: `1px solid ${c.borderLight}`,
+                  boxShadow: "0 1px 4px rgba(5,150,105,0.06), 0 4px 20px rgba(5,150,105,0.04)",
+                }}
+              >
+                <span
+                  className="absolute top-3 left-5 text-6xl leading-none"
+                  style={{ fontFamily: "var(--font-display)", color: c.emPale, opacity: 1 }}
+                >
+                  &ldquo;
+                </span>
+                <p className="relative z-10 italic mb-4 pt-8" style={{ fontFamily: "var(--font-body)", color: c.textSoft, fontSize: "15px", lineHeight: 1.7 }}>
+                  {t.quote}
+                </p>
+                <div
+                  className="inline-block px-3 py-1 rounded-full text-xs font-semibold mb-3"
+                  style={{ background: c.emGhost, color: c.emDeep, fontFamily: "var(--font-ui)" }}
+                >
+                  {t.result}
+                </div>
+                <div className="w-10 h-[2px] mb-3" style={{ background: c.emLight, opacity: 0.6 }} />
+                <p className="font-semibold text-sm" style={{ fontFamily: "var(--font-ui)", color: c.textDeep }}>
+                  {t.name}
+                </p>
+                <p className="text-xs" style={{ fontFamily: "var(--font-ui)", color: c.muted }}>
+                  {t.meta}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════ CTA ═══════════════ */}
+      <section className="section text-center relative overflow-hidden" style={{ background: c.emDeep }}>
+        {/* Malachite — rich on dark emerald */}
+        <div className="absolute inset-0 bg-cover bg-center opacity-[0.12]" style={{ backgroundImage: "url(/images/malachite.jpg)" }} />
+        <div className="absolute inset-0" style={{ background: `linear-gradient(to right, ${c.emDeep} 0%, transparent 25%, transparent 75%, ${c.emDeep} 100%)` }} />
+        <div className="absolute inset-0" style={{ background: `linear-gradient(to bottom, ${c.emDeep} 0%, transparent 15%, transparent 85%, ${c.emDeep} 100%)` }} />
+
+        <div className="container relative z-10">
+          <div ref={addRevealRef} className="reveal">
+            <h2
+              className="mb-4"
+              style={{ fontFamily: "var(--font-display)", fontWeight: 300, color: c.emGhost, fontSize: "clamp(1.75rem, 3.5vw, 2.625rem)" }}
+            >
+              Ready to write your success story?
+            </h2>
+            <p className="max-w-xl mx-auto mb-8" style={{ color: c.emPale, fontSize: "16px", opacity: 0.9 }}>
+              Every result starts with a conversation. Book your free discovery call
+              and let's figure out what your student is capable of.
+            </p>
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-md font-semibold text-sm transition-all duration-200 hover:-translate-y-0.5"
+              style={{
+                fontFamily: "var(--font-ui)",
+                letterSpacing: "0.06em",
+                background: c.card,
+                color: c.emDeep,
+                boxShadow: "0 4px 16px rgba(0,0,0,0.2)",
+              }}
+            >
+              Book a Free Discovery Call
+            </Link>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
