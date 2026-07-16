@@ -54,6 +54,16 @@ gitignored; read them with the Read tool to actually look at the result.
   `BrainScene.tsx`, `BrainTransition.tsx`)
 - `src/components/ui/` — shadcn/ui primitives (generated, edit sparingly)
 - `src/lib/brain.ts` — brain animation data/logic
+- `src/lib/submitForm.ts` — shared submission path for every form on the site
+  (general inquiry, consultant application, client review on Contact.tsx). Each
+  form type reads its own `VITE_*_ENDPOINT` env var (see `.env.example`); until
+  that's set the payload is just logged to the console and the UI reports
+  success, so forms are fully clickable/demoable before the backend exists.
+  Michael is wiring these up to a Google backend (Apps Script Web App writing
+  into Sheets/Docs is the standard pattern for a static frontend — direct
+  Google Docs API calls need OAuth and aren't meant for public form intake).
+  Point each env var at the deployed Web App URL when ready; no frontend
+  changes needed beyond that.
 - `public/images/` — all site imagery (large files; see `public/image-inventory.md`)
 - `vite.config.ts` — includes `kimi-plugin-inspect-react`, a dev-only inspector
   overlay plugin left over from the original Kimi platform; harmless to keep, safe
