@@ -455,12 +455,8 @@ export default function Courses() {
             <div
               key={course.id}
               id={course.id}
-              className="course-detail-card mb-8 last:mb-0 rounded-[10px] overflow-hidden"
-              style={{
-                background: "rgba(13, 27, 43, 0.9)",
-                border: "0.5px solid rgba(36, 58, 78, 0.5)",
-                "--course-accent": course.accent,
-              } as React.CSSProperties}
+              className="course-detail-card mb-8 last:mb-0 overflow-hidden"
+              style={{ "--course-accent": course.accent } as React.CSSProperties}
             >
               {/* Accent bar */}
               <div style={{ height: "3px", background: course.accent }} />
@@ -571,8 +567,8 @@ export default function Courses() {
                       <div
                         className="p-3 rounded-md"
                         style={{
-                          background: "rgba(124,58,237,0.06)",
-                          border: "0.5px solid rgba(124,58,237,0.2)",
+                          background: "rgba(124,58,237,0.09)",
+                          borderLeft: "2px solid var(--kq-violet-flash)",
                         }}
                       >
                         <p style={{ fontFamily: "var(--font-ui)", fontSize: "12px", color: "var(--kq-violet-soft)", lineHeight: 1.5 }}>
