@@ -64,18 +64,11 @@ export default function Contact() {
             ].map((item, i) => (
               <div
                 key={i}
-                className="text-center p-6 rounded-[10px]"
-                style={{
-                  background: "var(--kq-opal-deep)",
-                  border: "0.5px solid var(--kq-opal-rim)",
-                }}
+                className="kq-panel text-center p-6"
               >
                 <div
-                  className="inline-flex items-center justify-center w-12 h-12 rounded-full mb-3"
-                  style={{
-                    background: "rgba(16,185,129,0.10)",
-                    color: "var(--kq-em-light)",
-                  }}
+                  className="kq-icon-circle inline-flex items-center justify-center w-12 h-12 rounded-full mb-3"
+                  style={{ color: "var(--kq-em-light)" }}
                 >
                   {item.icon}
                 </div>
@@ -116,8 +109,8 @@ export default function Contact() {
               <div
                 className="text-center p-12 rounded-[10px]"
                 style={{
-                  background: "var(--kq-opal-deep)",
-                  border: "0.5px solid var(--kq-em-bright)",
+                  background: "color-mix(in srgb, var(--kq-opal-deep) 90%, var(--kq-em-bright) 10%)",
+                  boxShadow: "var(--kq-shadow-lg), inset 0 0 0 1px color-mix(in srgb, var(--kq-em-bright) 30%, transparent)",
                 }}
               >
                 <CheckCircle
@@ -145,7 +138,7 @@ export default function Contact() {
                 className="p-8 rounded-[10px]"
                 style={{
                   background: "var(--kq-opal-deep)",
-                  border: "0.5px solid var(--kq-opal-rim)",
+                  boxShadow: "var(--kq-shadow-lg)",
                 }}
               >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
