@@ -59,11 +59,14 @@ gitignored; read them with the Read tool to actually look at the result.
   form type reads its own `VITE_*_ENDPOINT` env var (see `.env.example`); until
   that's set the payload is just logged to the console and the UI reports
   success, so forms are fully clickable/demoable before the backend exists.
-  Michael is wiring these up to a Google backend (Apps Script Web App writing
-  into Sheets/Docs is the standard pattern for a static frontend — direct
-  Google Docs API calls need OAuth and aren't meant for public form intake).
-  Point each env var at the deployed Web App URL when ready; no frontend
-  changes needed beyond that.
+  The backend is a single Google Cloud Function (sibling project at
+  `../kuriausity-forms-backend`, separate git repo) that appends each
+  submission as a row into one of three tabs of a Google Sheet, routing by the
+  `formType` field. It uses the function's own runtime service account
+  (Application Default Credentials) rather than a key file — the Sheet just
+  needs to be shared with that service account as an Editor. All three
+  `VITE_*_ENDPOINT` vars should point at the same deployed function URL; see
+  that project's README.md for the full deploy/sheet-setup steps.
 - `public/images/` — all site imagery (large files; see `public/image-inventory.md`)
 - `vite.config.ts` — includes `kimi-plugin-inspect-react`, a dev-only inspector
   overlay plugin left over from the original Kimi platform; harmless to keep, safe
