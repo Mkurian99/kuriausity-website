@@ -44,6 +44,12 @@
 
     --kq-opal-grad: linear-gradient(90deg,#7C3AED,#2563EB,#0D9488,#059669,#2D9A5E);
 
+    /* === Shading system (replaces hairline borders as the default separator) === */
+    --kq-shadow-sm: 0 1px 2px rgba(2,6,14,0.5);
+    --kq-shadow-md: 0 1px 1px rgba(2,6,14,0.4), 0 12px 28px -12px rgba(2,6,14,0.65);
+    --kq-shadow-lg: 0 1px 1px rgba(2,6,14,0.4), 0 28px 64px -20px rgba(2,6,14,0.75);
+    --kq-sheen: linear-gradient(160deg, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0) 40%);
+
     /* === Typography === */
     --font-display: 'Cormorant Garamond', Georgia, serif;
     --font-body:    'Inter', 'Helvetica Neue', system-ui, sans-serif;
@@ -205,32 +211,33 @@
   .section { padding: 5rem 0; }
   .section--lg { padding: 7rem 0; }
 
+  .kq-panel,
   .course-card, .scenario-card, .testimonial-card, .blog-card {
+    position: relative;
     background: var(--kq-opal-deep);
-    border: 0.5px solid var(--kq-opal-rim);
-    border-radius: 10px;
+    background-image: var(--kq-sheen);
+    border-radius: 14px;
     color: var(--kq-text-primary);
-    transition: all 300ms ease;
+    box-shadow: var(--kq-shadow-md);
+    transition: transform 350ms cubic-bezier(.22,1,.36,1), box-shadow 350ms ease, background-color 350ms ease;
   }
 
   .course-card:hover, .scenario-card:hover, .blog-card:hover {
-    border-color: var(--kq-em-light);
-    box-shadow: 0 12px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(110,231,183,0.15);
-    transform: translateY(-2px);
+    box-shadow: var(--kq-shadow-lg), 0 0 0 1px color-mix(in srgb, var(--card-accent, var(--kq-em-light)) 35%, transparent);
+    transform: translateY(-3px);
   }
 
   .card-accent-bar {
-    background: var(--accent-color, var(--kq-em-bright));
-    height: 3px;
-    border-radius: 10px 10px 0 0;
+    background: linear-gradient(90deg, transparent, var(--accent-color, var(--kq-em-bright)) 20%, var(--accent-color, var(--kq-em-bright)) 80%, transparent);
+    height: 2px;
+    opacity: 0.85;
   }
 
   .grade-badge, .duration-badge {
-    background: rgba(16,185,129,0.10);
+    background: rgba(16,185,129,0.12);
     color: var(--kq-em-light);
-    border: 0.5px solid var(--kq-em-mid);
     border-radius: 20px;
-    padding: 2px 10px;
+    padding: 3px 11px;
     font-size: 10px;
     font-family: var(--font-ui);
     font-weight: 600;
@@ -239,15 +246,13 @@
   }
 
   .duration-badge {
-    background: rgba(124,58,237,0.10);
+    background: rgba(124,58,237,0.12);
     color: var(--kq-violet-soft);
-    border-color: var(--kq-violet-flash);
   }
 
   .filter-btn {
-    background: var(--kq-opal-deep);
+    background: transparent;
     color: var(--kq-text-muted);
-    border: 0.5px solid var(--kq-opal-rim);
     font-family: var(--font-ui);
     font-size: 11px;
     font-weight: 600;
@@ -260,8 +265,15 @@
     white-space: nowrap;
   }
 
-  .filter-btn:hover { color: var(--kq-em-light); border-color: var(--kq-em-mid); }
-  .filter-btn.active { background: var(--kq-em-bright); color: var(--kq-obsidian); border-color: var(--kq-em-vivid); }
+  .filter-btn:hover { color: var(--kq-em-light); background: color-mix(in srgb, var(--kq-em-bright) 10%, transparent); }
+  .filter-btn.active { background: var(--kq-em-bright); color: var(--kq-obsidian); }
+
+  /* Soft filled icon roundel — replaces bordered icon-circle */
+  .kq-icon-circle {
+    background:
+      radial-gradient(120% 130% at 28% 20%, color-mix(in srgb, var(--icon-accent, var(--kq-em-bright)) 26%, transparent) 0%, color-mix(in srgb, var(--icon-accent, var(--kq-em-bright)) 6%, transparent) 60%, transparent 100%);
+    box-shadow: inset 0 1px 1px rgba(255,255,255,0.07), inset 0 -6px 12px rgba(0,0,0,0.25);
+  }
 }
 
 /* Grain texture overlay */
@@ -303,104 +315,42 @@
   opacity: 0.7;
 }
 
-/* Course cards — accent-colored hover glow (works on both Services and Courses) */
+/*
+ * Shaded panel system — shared by every card variant across the site
+ * (course/course-detail, consultant, tutoring, value, promise). Resting
+ * state is separation-by-shadow, never a border; hover deepens the shadow,
+ * lifts slightly, and washes in a touch of the panel's own accent color
+ * (--panel-accent) instead of a bordered glow ring.
+ */
 .course-detail-card,
-.course-card {
-  transition: all 300ms ease;
+.course-card,
+.consultant-card,
+.tutoring-card,
+.value-card,
+.promise-card {
+  position: relative;
+  background: var(--kq-opal-deep);
+  background-image: var(--kq-sheen);
+  border-radius: 14px;
+  box-shadow: var(--kq-shadow-md);
+  transition: transform 350ms cubic-bezier(.22,1,.36,1), box-shadow 350ms ease, background-color 350ms ease;
 }
 
 .course-detail-card:hover,
-.course-card:hover {
-  border-color: color-mix(in srgb, var(--course-accent) 50%, transparent) !important;
-  box-shadow:
-    0 0 20px color-mix(in srgb, var(--course-accent) 20%, transparent),
-    0 0 50px color-mix(in srgb, var(--course-accent) 10%, transparent),
-    inset 0 0 30px color-mix(in srgb, var(--course-accent) 5%, transparent);
-  transform: translateY(-1px);
-}
-
-/* Consultant cards — dark background with hover glow */
-.consultant-card {
-  transition: all 300ms ease;
-}
-
-.consultant-card:hover {
-  border-color: rgba(16, 185, 129, 0.4) !important;
-  box-shadow:
-    0 0 20px rgba(5, 150, 105, 0.12),
-    0 0 60px rgba(5, 150, 105, 0.06),
-    inset 0 0 30px rgba(5, 150, 105, 0.03);
-  transform: translateY(-2px);
-}
-
-/* Tutoring cards — dark background with hover glow */
-.tutoring-card {
-  transition: all 300ms ease;
-}
-
-.tutoring-card:hover {
-  border-color: rgba(16, 185, 129, 0.4) !important;
-  box-shadow:
-    0 0 24px rgba(5, 150, 105, 0.12),
-    0 0 60px rgba(5, 150, 105, 0.06),
-    inset 0 0 30px rgba(5, 150, 105, 0.03);
-  transform: translateY(-2px);
-}
-
-/* Value cards — dark background with hover glow */
-.value-card {
-  transition: all 300ms ease;
-}
-
-.value-card:hover {
-  border-color: rgba(16, 185, 129, 0.4) !important;
-  box-shadow:
-    0 0 20px rgba(5, 150, 105, 0.12),
-    0 0 60px rgba(5, 150, 105, 0.06),
-    inset 0 0 30px rgba(5, 150, 105, 0.03);
-  transform: translateY(-2px);
-}
-
-.value-card:hover .value-icon {
-  background: rgba(16, 185, 129, 0.12) !important;
-  color: var(--kq-em-light) !important;
-  border-color: rgba(16, 185, 129, 0.5) !important;
-  box-shadow: 0 0 16px rgba(5, 150, 105, 0.2);
-}
-
-/* Consultant cards — dark background with hover glow */
-.consultant-card {
-  transition: all 300ms ease;
-}
-
-.consultant-card:hover {
-  border-color: rgba(16, 185, 129, 0.4) !important;
-  box-shadow:
-    0 0 20px rgba(5, 150, 105, 0.12),
-    0 0 60px rgba(5, 150, 105, 0.06),
-    inset 0 0 30px rgba(5, 150, 105, 0.03);
-  transform: translateY(-2px);
-}
-
-/* Promise cards — dark background with hover glow */
-.promise-card {
-  transition: all 300ms ease;
-}
-
+.course-card:hover,
+.consultant-card:hover,
+.tutoring-card:hover,
+.value-card:hover,
 .promise-card:hover {
-  border-color: rgba(16, 185, 129, 0.4) !important;
-  box-shadow:
-    0 0 20px rgba(5, 150, 105, 0.15),
-    0 0 60px rgba(5, 150, 105, 0.08),
-    inset 0 0 30px rgba(5, 150, 105, 0.04);
-  transform: translateY(-2px);
+  box-shadow: var(--kq-shadow-lg), inset 0 0 0 1px color-mix(in srgb, var(--panel-accent, var(--course-accent, var(--kq-em-bright))) 22%, transparent);
+  background-color: color-mix(in srgb, var(--kq-opal-deep) 94%, var(--panel-accent, var(--course-accent, var(--kq-em-bright))) 6%);
+  transform: translateY(-3px);
 }
 
+.value-card:hover .value-icon,
 .promise-card:hover .promise-icon {
-  background: rgba(16, 185, 129, 0.15) !important;
-  color: var(--kq-em-light) !important;
-  border-color: rgba(16, 185, 129, 0.5) !important;
-  box-shadow: 0 0 16px rgba(5, 150, 105, 0.25);
+  background: color-mix(in srgb, var(--kq-em-bright) 16%, transparent);
+  color: var(--kq-em-light);
 }
 
 /* Scroll reveal */
