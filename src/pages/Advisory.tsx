@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { Search, FileText, Shield, Target, ArrowRight, Sparkles, BookOpen, Network, Users } from "lucide-react";
+import { Search, FileText, Shield, Target, ArrowRight, Sparkles, BookOpen, Network } from "lucide-react";
 
 const processSteps = [
   {
@@ -370,20 +370,17 @@ export default function Advisory() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-x-10 gap-y-10 max-w-4xl mx-auto">
             {[
               {
-                icon: <Shield size={20} />,
                 title: "Pressure-Testing",
                 desc: "Consultants challenge assumptions from their domain expertise — law, policy, science, finance — ensuring no blind spot goes unexamined.",
               },
               {
-                icon: <Search size={20} />,
                 title: "Field Intelligence",
                 desc: "Access to real-world practitioners and researchers who can validate or refute hypotheses with current, ground-level knowledge.",
               },
               {
-                icon: <Users size={20} />,
                 title: "Network Effects",
                 desc: "Each consultant brings their own professional network. The activation cascades — connecting you to expertise you didn't know you needed.",
               },
@@ -391,14 +388,15 @@ export default function Advisory() {
               <div
                 key={i}
                 ref={addRevealRef}
-                className="reveal kq-panel p-6 text-center"
+                className="reveal pt-5"
+                style={{ borderTop: "2px solid var(--kq-em-mid)" }}
               >
-                <div
-                  className="kq-icon-circle inline-flex items-center justify-center w-12 h-12 rounded-full mb-4"
-                  style={{ color: "var(--kq-em-light)" }}
+                <span
+                  className="block mb-3"
+                  style={{ fontFamily: "var(--font-display)", fontStyle: "italic", fontSize: "1.75rem", color: "var(--kq-em-mid)", opacity: 0.6 }}
                 >
-                  {item.icon}
-                </div>
+                  {["I", "II", "III"][i]}
+                </span>
                 <h3
                   className="text-base mb-2"
                   style={{ fontFamily: "var(--font-display)", fontWeight: 500, color: "var(--kq-em-pale)" }}
