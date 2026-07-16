@@ -190,9 +190,7 @@ export default function About() {
             >
               <div
                 className="w-full aspect-[4/5] max-w-md rounded-[10px] relative overflow-hidden"
-                style={{
-                  border: "0.5px solid var(--kq-opal-rim)",
-                }}
+                style={{ boxShadow: "var(--kq-shadow-lg)" }}
               >
                 <img
                   src="/images/thesis-presentation.jpg"
@@ -276,20 +274,11 @@ export default function About() {
               <div
                 key={i}
                 ref={addRevealRef}
-                className="reveal value-card p-6 rounded-[10px] text-center transition-all duration-300"
-                style={{
-                  background: "rgba(13, 27, 43, 0.85)",
-                  border: "0.5px solid rgba(36, 58, 78, 0.5)",
-                  backdropFilter: "blur(8px)",
-                }}
+                className="reveal value-card p-6 text-center transition-all duration-300"
               >
                 <div
-                  className="value-icon inline-flex items-center justify-center w-14 h-14 rounded-full mb-4 transition-all duration-300"
-                  style={{
-                    background: "rgba(16,185,129,0.06)",
-                    color: "var(--kq-em-mid)",
-                    border: "0.5px solid rgba(4, 120, 87, 0.3)",
-                  }}
+                  className="value-icon kq-icon-circle inline-flex items-center justify-center w-14 h-14 rounded-full mb-4 transition-all duration-300"
+                  style={{ color: "var(--kq-em-mid)" }}
                 >
                   {v.icon}
                 </div>
@@ -466,12 +455,7 @@ export default function About() {
               <div
                 key={i}
                 ref={addRevealRef}
-                className="reveal consultant-card p-6 rounded-[10px] transition-all duration-300"
-                style={{
-                  background: "rgba(13, 27, 43, 0.85)",
-                  border: "0.5px solid rgba(36, 58, 78, 0.5)",
-                  backdropFilter: "blur(8px)",
-                }}
+                className="reveal consultant-card p-6 transition-all duration-300"
               >
                 <div className="flex items-start gap-4">
                   {/* Initials avatar */}

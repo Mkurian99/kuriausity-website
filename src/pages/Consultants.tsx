@@ -152,7 +152,7 @@ export default function Consultants() {
               offer field-level expertise, provide specialized sessions, and widen your
               student's network.
             </p>
-            <div className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-full" style={{ background: "rgba(5,150,105,0.12)", border: "0.5px solid rgba(5,150,105,0.3)" }}>
+            <div className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-full" style={{ background: "rgba(5,150,105,0.14)" }}>
               <GraduationCap size={14} style={{ color: "var(--kq-em-bright)" }} />
               <span style={{ fontFamily: "var(--font-ui)", fontSize: "12px", color: "var(--kq-em-light)", fontWeight: 600 }}>
                 No additional cost — included with every engagement
@@ -189,8 +189,7 @@ export default function Consultants() {
               <div
                 key={i}
                 ref={addRevealRef}
-                className="reveal p-5 rounded-[10px] text-center"
-                style={{ background: "var(--kq-opal-deep)", border: "0.5px solid var(--kq-opal-rim)" }}
+                className="reveal kq-panel p-5 text-center"
               >
                 <Award size={20} style={{ color: "var(--kq-em-light)", margin: "0 auto 8px" }} />
                 <p style={{ fontFamily: "var(--font-display)", fontWeight: 500, color: "var(--kq-em-pale)", fontSize: "15px" }}>
@@ -225,11 +224,7 @@ export default function Consultants() {
               <div
                 key={i}
                 ref={addRevealRef}
-                className="reveal consultant-card p-6 rounded-[10px]"
-                style={{
-                  background: "rgba(13, 27, 43, 0.9)",
-                  border: "0.5px solid rgba(36, 58, 78, 0.5)",
-                }}
+                className="reveal consultant-card p-6"
               >
                 <div className="flex items-start gap-4">
                   <div
@@ -298,7 +293,7 @@ export default function Consultants() {
                 key={i}
                 ref={addRevealRef}
                 className="reveal px-5 py-3 rounded-full flex items-center gap-2"
-                style={{ background: "var(--kq-opal-deep)", border: "0.5px solid var(--kq-opal-rim)" }}
+                style={{ background: "var(--kq-opal-deep)", boxShadow: "var(--kq-shadow-sm)" }}
               >
                 <Users size={12} style={{ color: "var(--kq-em-mid)" }} />
                 <span style={{ fontFamily: "var(--font-ui)", fontSize: "13px", color: "var(--kq-em-pale)" }}>{pc.name}</span>
@@ -330,7 +325,7 @@ export default function Consultants() {
               { step: "02", title: "Make the Connection", desc: "Michael coordinates directly with the consultant to arrange sessions that complement your student's existing learning plan." },
               { step: "03", title: "Seamless Integration", desc: "Consultant sessions are woven into your program at no extra charge. Your student gets world-class expertise without any administrative burden." },
             ].map((item, i) => (
-              <div key={i} ref={addRevealRef} className="reveal text-center p-6 rounded-[10px]" style={{ background: "var(--kq-opal-deep)", border: "0.5px solid var(--kq-opal-rim)" }}>
+              <div key={i} ref={addRevealRef} className="reveal kq-panel text-center p-6">
                 <p className="text-3xl font-bold mb-3" style={{ fontFamily: "var(--font-mono)", color: "var(--kq-cobalt-soft)" }}>{item.step}</p>
                 <h3 className="text-lg mb-2" style={{ fontFamily: "var(--font-display)", fontWeight: 500, color: "var(--kq-em-pale)" }}>{item.title}</h3>
                 <p style={{ color: "var(--kq-text-muted)", fontSize: "14px", lineHeight: 1.7 }}>{item.desc}</p>

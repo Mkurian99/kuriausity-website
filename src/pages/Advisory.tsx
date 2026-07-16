@@ -85,7 +85,7 @@ export default function Advisory() {
           <div className="max-w-4xl">
             <div
               className="inline-flex items-center gap-2 mb-5 px-4 py-2 rounded-full"
-              style={{ background: "rgba(124,58,237,0.10)", border: "0.5px solid rgba(124,58,237,0.3)" }}
+              style={{ background: "rgba(124,58,237,0.14)" }}
             >
               <Sparkles size={14} style={{ color: "var(--kq-violet-soft)" }} />
               <span
@@ -176,12 +176,8 @@ export default function Advisory() {
                 {/* Icon */}
                 <div className="flex-shrink-0 w-16 flex flex-col items-center">
                   <div
-                    className="w-12 h-12 rounded-full flex items-center justify-center"
-                    style={{
-                      background: "rgba(124,58,237,0.10)",
-                      color: "var(--kq-violet-soft)",
-                      border: "0.5px solid rgba(124,58,237,0.3)",
-                    }}
+                    className="kq-icon-circle w-12 h-12 rounded-full flex items-center justify-center"
+                    style={{ color: "var(--kq-violet-soft)", "--icon-accent": "var(--kq-violet-flash)" } as React.CSSProperties}
                   >
                     {step.icon}
                   </div>
@@ -249,11 +245,7 @@ export default function Advisory() {
               <div
                 key={i}
                 ref={addRevealRef}
-                className="reveal p-6 rounded-[10px]"
-                style={{
-                  background: "var(--kq-opal-deep)",
-                  border: "0.5px solid var(--kq-opal-rim)",
-                }}
+                className="reveal kq-panel p-6"
               >
                 <div
                   className="w-10 h-[2px] mb-4"
@@ -291,7 +283,7 @@ export default function Advisory() {
           </div>
 
           <div className="max-w-3xl mx-auto" ref={addRevealRef}>
-            <div className="overflow-hidden rounded-[10px]" style={{ border: "0.5px solid var(--kq-opal-rim)" }}>
+            <div className="overflow-hidden rounded-[10px]" style={{ boxShadow: "var(--kq-shadow-lg)" }}>
               {/* Table header */}
               <div
                 className="grid grid-cols-3 gap-4 px-6 py-3"
@@ -357,7 +349,7 @@ export default function Advisory() {
           <div ref={addRevealRef} className="reveal text-center mb-12">
             <div
               className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full"
-              style={{ background: "rgba(5,150,105,0.10)", border: "0.5px solid rgba(5,150,105,0.3)" }}
+              style={{ background: "rgba(5,150,105,0.14)" }}
             >
               <Network size={14} style={{ color: "var(--kq-em-bright)" }} />
               <span style={{ fontFamily: "var(--font-ui)", fontSize: "11px", fontWeight: 600, color: "var(--kq-em-light)", letterSpacing: "0.12em", textTransform: "uppercase" }}>
@@ -399,19 +391,11 @@ export default function Advisory() {
               <div
                 key={i}
                 ref={addRevealRef}
-                className="reveal p-6 rounded-[10px] text-center"
-                style={{
-                  background: "var(--kq-opal-deep)",
-                  border: "0.5px solid var(--kq-opal-rim)",
-                }}
+                className="reveal kq-panel p-6 text-center"
               >
                 <div
-                  className="inline-flex items-center justify-center w-12 h-12 rounded-full mb-4"
-                  style={{
-                    background: "rgba(16,185,129,0.10)",
-                    color: "var(--kq-em-light)",
-                    border: "0.5px solid var(--kq-em-mid)",
-                  }}
+                  className="kq-icon-circle inline-flex items-center justify-center w-12 h-12 rounded-full mb-4"
+                  style={{ color: "var(--kq-em-light)" }}
                 >
                   {item.icon}
                 </div>
@@ -476,14 +460,8 @@ export default function Advisory() {
               <div
                 key={i}
                 ref={addRevealRef}
-                className="reveal p-6 rounded-[6px]"
-                style={{
-                  background: "var(--kq-opal-deep)",
-                  borderLeft: "4px solid var(--kq-violet-flash)",
-                  borderTop: "0.5px solid var(--kq-opal-rim)",
-                  borderRight: "0.5px solid var(--kq-opal-rim)",
-                  borderBottom: "0.5px solid var(--kq-opal-rim)",
-                }}
+                className="reveal kq-panel p-6"
+                style={{ borderLeft: "3px solid var(--kq-violet-flash)", borderRadius: "4px 14px 14px 4px" }}
               >
                 <h3
                   className="text-base mb-2"
