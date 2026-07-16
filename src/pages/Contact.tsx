@@ -21,9 +21,12 @@ export default function Contact() {
     name: "",
     email: "",
     phone: "",
+    studentAge: "",
     studentGrade: "",
     message: "",
   });
+  const ageValue = parseInt(formData.studentAge, 10);
+  const isMinor = !isNaN(ageValue) && ageValue > 0 && ageValue < 18;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -223,7 +226,7 @@ export default function Contact() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                   <div>
                     <label className={labelClass} style={labelStyle}>
-                      Parent Name
+                      Guardian/Client Name
                     </label>
                     <input
                       type="text"
@@ -273,7 +276,34 @@ export default function Contact() {
                   </div>
                   <div>
                     <label className={labelClass} style={labelStyle}>
-                      Student's Grade
+                      Student's Age
+                    </label>
+                    <input
+                      type="number"
+                      min={1}
+                      max={99}
+                      value={formData.studentAge}
+                      onChange={(e) =>
+                        setFormData({ ...formData, studentAge: e.target.value })
+                      }
+                      className="w-full px-4 py-3 rounded-md text-sm"
+                      style={inputStyle}
+                      placeholder="If applicable — leave blank for adult or business inquiries"
+                    />
+                  </div>
+                </div>
+
+                <div
+                  style={{
+                    maxHeight: isMinor ? "100px" : "0px",
+                    opacity: isMinor ? 1 : 0,
+                    overflow: "hidden",
+                    transition: "max-height 300ms ease, opacity 300ms ease",
+                  }}
+                >
+                  <div className="mb-6">
+                    <label className={labelClass} style={labelStyle}>
+                      Grade Level
                     </label>
                     <select
                       value={formData.studentGrade}
@@ -282,19 +312,20 @@ export default function Contact() {
                       }
                       className="w-full px-4 py-3 rounded-md text-sm"
                       style={inputStyle}
+                      tabIndex={isMinor ? undefined : -1}
                     >
                       <option value="">Select grade</option>
+                      <option value="elementary">Elementary (K-5)</option>
                       <option value="6-8">Middle School (6-8)</option>
                       <option value="9-10">High School Freshman/Sophomore</option>
                       <option value="11-12">High School Junior/Senior</option>
-                      <option value="college">College</option>
                     </select>
                   </div>
                 </div>
 
                 <div className="mb-6">
                   <label className={labelClass} style={labelStyle}>
-                    Tell us about your student
+                    Tell us more
                   </label>
                   <textarea
                     rows={4}
@@ -304,7 +335,7 @@ export default function Contact() {
                     }
                     className="w-full px-4 py-3 rounded-md text-sm resize-none"
                     style={inputStyle}
-                    placeholder="What are your student's goals, challenges, and learning style?"
+                    placeholder="Tell us about your goals, your student's needs, or your business challenge — whatever brings you here."
                   />
                 </div>
 
