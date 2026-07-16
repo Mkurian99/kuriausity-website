@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Award, BookOpen, Users, Brain, GraduationCap } from "lucide-react";
+import { GraduationCap } from "lucide-react";
 
 const timeline = [
   {
@@ -36,22 +36,18 @@ const timeline = [
 
 const values = [
   {
-    icon: <Brain size={24} />,
     title: "Cognition & Mindfulness First",
     desc: "Every technique is grounded in peer-reviewed research on how the brain learns. We don't follow trends — we follow evidence.",
   },
   {
-    icon: <BookOpen size={24} />,
     title: "Permanent Skills",
     desc: "We don't teach tricks or shortcuts. We rewire how students think, so the improvements last long after the course ends.",
   },
   {
-    icon: <Users size={24} />,
     title: "Individualized Approach",
     desc: "No two brains are the same. We diagnose each student's cognitive patterns and build a custom learning plan around them.",
   },
   {
-    icon: <Award size={24} />,
     title: "Elite Standards",
     desc: "Our methods come from competitive debate, Rice University research, and the cognitive science of learning. We don't settle for 'good enough'.",
   },
@@ -269,19 +265,26 @@ export default function About() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10 max-w-4xl mx-auto">
             {values.map((v, i) => (
               <div
                 key={i}
                 ref={addRevealRef}
-                className="reveal value-card p-6 text-center transition-all duration-300"
+                className="reveal grid grid-cols-[auto_1fr] gap-5"
               >
-                <div
-                  className="value-icon kq-icon-circle inline-flex items-center justify-center w-14 h-14 rounded-full mb-4 transition-all duration-300"
-                  style={{ color: "var(--kq-em-mid)" }}
+                <span
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontStyle: "italic",
+                    fontSize: "2.25rem",
+                    lineHeight: 1,
+                    color: "var(--kq-em-mid)",
+                    opacity: 0.5,
+                  }}
                 >
-                  {v.icon}
-                </div>
+                  {["I", "II", "III", "IV"][i]}
+                </span>
+                <div>
                 <h3
                   className="text-base mb-2"
                   style={{
@@ -301,6 +304,7 @@ export default function About() {
                 >
                   {v.desc}
                 </p>
+                </div>
               </div>
             ))}
           </div>
