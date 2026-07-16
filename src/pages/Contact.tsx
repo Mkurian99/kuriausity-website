@@ -288,7 +288,6 @@ export default function Contact() {
                       }
                       className="w-full px-4 py-3 rounded-md text-sm"
                       style={inputStyle}
-                      placeholder="If applicable — leave blank for adult or business inquiries"
                     />
                   </div>
                 </div>
