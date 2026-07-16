@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { TrendingUp, Award, Users, Target } from "lucide-react";
 
 /* ═══════════════ LIGHT FIELD PALETTE (EWO) ═══════════════ */
 const c = {
@@ -33,10 +32,10 @@ const c = {
 };
 
 const stats = [
-  { number: "150+", label: "Average SAT Point Gain", icon: <TrendingUp size={24} /> },
-  { number: "4+", label: "Average ACT Composite Gain", icon: <Award size={24} /> },
-  { number: "94%", label: "Families Report Improved Confidence", icon: <Users size={24} /> },
-  { number: "15+", label: "TOC Bids in Debate", icon: <Target size={24} /> },
+  { number: "150+", label: "Average SAT Point Gain" },
+  { number: "4+", label: "Average ACT Composite Gain" },
+  { number: "94%", label: "Families Report Improved Confidence" },
+  { number: "15+", label: "TOC Bids in Debate" },
 ];
 
 const testimonials = [
@@ -168,26 +167,20 @@ export default function Results() {
         <div className="absolute inset-0" style={{ background: `linear-gradient(to bottom, ${c.emFaint} 0%, transparent 15%, transparent 85%, ${c.emFaint} 100%)` }} />
 
         <div className="container relative z-10">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div
+            ref={addRevealRef}
+            className="reveal grid grid-cols-2 md:grid-cols-4"
+            style={{ background: c.card, borderRadius: "14px", boxShadow: "0 1px 2px rgba(5,150,105,0.05), 0 20px 40px -16px rgba(5,150,105,0.16)" }}
+          >
             {stats.map((stat, i) => (
               <div
                 key={i}
-                ref={addRevealRef}
-                className="reveal text-center p-6 rounded-[10px]"
-                style={{
-                  background: c.card,
-                  boxShadow: "0 1px 2px rgba(5,150,105,0.05), 0 16px 32px -12px rgba(5,150,105,0.14)",
-                }}
+                className="text-center py-10 px-4"
+                style={{ borderLeft: i > 0 ? `1px solid ${c.borderLight}` : "none" }}
               >
-                <div
-                  className="inline-flex items-center justify-center w-12 h-12 rounded-full mb-4"
-                  style={{ background: c.emGhost, color: c.emerald }}
-                >
-                  {stat.icon}
-                </div>
                 <p
-                  className="text-3xl font-bold mb-1"
-                  style={{ fontFamily: "var(--font-mono)", color: c.cobalt }}
+                  className="font-bold mb-2"
+                  style={{ fontFamily: "var(--font-mono)", color: c.cobalt, fontSize: "clamp(1.75rem, 4vw, 2.5rem)" }}
                 >
                   {stat.number}
                 </p>
@@ -231,16 +224,13 @@ export default function Results() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-px" style={{ background: c.borderLight, borderRadius: "14px", overflow: "hidden" }}>
             {outcomes.map((out, i) => (
               <div
                 key={i}
                 ref={addRevealRef}
-                className="reveal text-center p-8 rounded-[10px]"
-                style={{
-                  background: c.card,
-                  boxShadow: "0 1px 2px rgba(5,150,105,0.05), 0 16px 32px -12px rgba(5,150,105,0.14)",
-                }}
+                className="reveal text-center p-8"
+                style={{ background: c.card, borderTop: `3px solid ${out.color}` }}
               >
                 <p className="text-4xl font-bold mb-1" style={{ fontFamily: "var(--font-mono)", color: out.color }}>
                   {out.metric}
@@ -285,33 +275,29 @@ export default function Results() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="columns-1 md:columns-2 lg:columns-3 gap-10">
             {testimonials.map((t, i) => (
               <div
                 key={i}
                 ref={addRevealRef}
-                className="reveal p-6 rounded-[10px] relative"
-                style={{
-                  background: c.card,
-                  boxShadow: "0 1px 2px rgba(5,150,105,0.05), 0 16px 32px -12px rgba(5,150,105,0.14)",
-                }}
+                className="reveal break-inside-avoid mb-10 pb-10"
+                style={{ borderBottom: i < testimonials.length - 1 ? `1px solid ${c.borderLight}` : "none" }}
               >
                 <span
-                  className="absolute top-3 left-5 text-6xl leading-none"
-                  style={{ fontFamily: "var(--font-display)", color: c.emPale, opacity: 1 }}
+                  className="block text-5xl leading-none mb-1"
+                  style={{ fontFamily: "var(--font-display)", color: c.emPale }}
                 >
                   &ldquo;
                 </span>
-                <p className="relative z-10 italic mb-4 pt-8" style={{ fontFamily: "var(--font-body)", color: c.textSoft, fontSize: "15px", lineHeight: 1.7 }}>
+                <p className="italic mb-4 -mt-2" style={{ fontFamily: "var(--font-body)", color: c.textSoft, fontSize: "15px", lineHeight: 1.7 }}>
                   {t.quote}
                 </p>
-                <div
-                  className="inline-block px-3 py-1 rounded-full text-xs font-semibold mb-3"
-                  style={{ background: c.emGhost, color: c.emDeep, fontFamily: "var(--font-ui)" }}
+                <p
+                  className="text-xs font-semibold mb-3"
+                  style={{ color: c.emDeep, fontFamily: "var(--font-ui)", letterSpacing: "0.03em" }}
                 >
                   {t.result}
-                </div>
-                <div className="w-10 h-[2px] mb-3" style={{ background: c.emLight, opacity: 0.6 }} />
+                </p>
                 <p className="font-semibold text-sm" style={{ fontFamily: "var(--font-ui)", color: c.textDeep }}>
                   {t.name}
                 </p>
