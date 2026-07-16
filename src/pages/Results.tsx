@@ -176,8 +176,7 @@ export default function Results() {
                 className="reveal text-center p-6 rounded-[10px]"
                 style={{
                   background: c.card,
-                  border: `1px solid ${c.borderLight}`,
-                  boxShadow: "0 1px 4px rgba(5,150,105,0.06), 0 4px 20px rgba(5,150,105,0.04)",
+                  boxShadow: "0 1px 2px rgba(5,150,105,0.05), 0 16px 32px -12px rgba(5,150,105,0.14)",
                 }}
               >
                 <div
@@ -240,8 +239,7 @@ export default function Results() {
                 className="reveal text-center p-8 rounded-[10px]"
                 style={{
                   background: c.card,
-                  border: `1px solid ${c.borderLight}`,
-                  boxShadow: "0 1px 4px rgba(5,150,105,0.06), 0 4px 20px rgba(5,150,105,0.04)",
+                  boxShadow: "0 1px 2px rgba(5,150,105,0.05), 0 16px 32px -12px rgba(5,150,105,0.14)",
                 }}
               >
                 <p className="text-4xl font-bold mb-1" style={{ fontFamily: "var(--font-mono)", color: out.color }}>
@@ -295,8 +293,7 @@ export default function Results() {
                 className="reveal p-6 rounded-[10px] relative"
                 style={{
                   background: c.card,
-                  border: `1px solid ${c.borderLight}`,
-                  boxShadow: "0 1px 4px rgba(5,150,105,0.06), 0 4px 20px rgba(5,150,105,0.04)",
+                  boxShadow: "0 1px 2px rgba(5,150,105,0.05), 0 16px 32px -12px rgba(5,150,105,0.14)",
                 }}
               >
                 <span
