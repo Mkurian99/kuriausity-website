@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { GraduationCap, Award, Star, Users, BookOpen } from "lucide-react";
+import { GraduationCap, Star, Users, BookOpen } from "lucide-react";
 
 /*
   Consultants are friends and colleagues of Kuriausity who can be called upon
@@ -179,7 +179,7 @@ export default function Consultants() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+          <div className="flex flex-wrap justify-center max-w-4xl mx-auto" style={{ borderTop: "0.5px solid var(--kq-opal-rim)", borderBottom: "0.5px solid var(--kq-opal-rim)" }}>
             {[
               { name: "Karl Rove", title: "Former Deputy Chief of Staff" },
               { name: "William Lane Craig", title: "Philosopher & Theologian" },
@@ -189,13 +189,13 @@ export default function Consultants() {
               <div
                 key={i}
                 ref={addRevealRef}
-                className="reveal kq-panel p-5 text-center"
+                className="reveal text-center py-8 px-8"
+                style={{ borderLeft: i > 0 ? "0.5px solid var(--kq-opal-rim)" : "none" }}
               >
-                <Award size={20} style={{ color: "var(--kq-em-light)", margin: "0 auto 8px" }} />
-                <p style={{ fontFamily: "var(--font-display)", fontWeight: 500, color: "var(--kq-em-pale)", fontSize: "15px" }}>
+                <p style={{ fontFamily: "var(--font-display)", fontStyle: "italic", fontWeight: 500, color: "var(--kq-em-pale)", fontSize: "17px" }}>
                   {person.name}
                 </p>
-                <p style={{ fontFamily: "var(--font-ui)", fontSize: "12px", color: "var(--kq-text-muted)", marginTop: "4px" }}>
+                <p style={{ fontFamily: "var(--font-ui)", fontSize: "11px", color: "var(--kq-text-muted)", marginTop: "6px", textTransform: "uppercase", letterSpacing: "0.08em" }}>
                   {person.title}
                 </p>
               </div>
@@ -325,7 +325,7 @@ export default function Consultants() {
               { step: "02", title: "Make the Connection", desc: "Michael coordinates directly with the consultant to arrange sessions that complement your student's existing learning plan." },
               { step: "03", title: "Seamless Integration", desc: "Consultant sessions are woven into your program at no extra charge. Your student gets world-class expertise without any administrative burden." },
             ].map((item, i) => (
-              <div key={i} ref={addRevealRef} className="reveal kq-panel text-center p-6">
+              <div key={i} ref={addRevealRef} className="reveal text-center pt-6" style={{ borderTop: "2px solid var(--kq-cobalt-flash)" }}>
                 <p className="text-3xl font-bold mb-3" style={{ fontFamily: "var(--font-mono)", color: "var(--kq-cobalt-soft)" }}>{item.step}</p>
                 <h3 className="text-lg mb-2" style={{ fontFamily: "var(--font-display)", fontWeight: 500, color: "var(--kq-em-pale)" }}>{item.title}</h3>
                 <p style={{ color: "var(--kq-text-muted)", fontSize: "14px", lineHeight: 1.7 }}>{item.desc}</p>
