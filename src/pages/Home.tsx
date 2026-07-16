@@ -279,19 +279,11 @@ export default function Home() {
               <div
                 key={i}
                 ref={addRevealRef}
-                className="reveal promise-card p-8 rounded-[10px] text-center transition-all duration-300"
-                style={{
-                  background: "rgba(7, 16, 26, 0.95)",
-                  border: "0.5px solid rgba(36, 58, 78, 0.5)",
-                }}
+                className="reveal promise-card p-8 text-center transition-all duration-300"
               >
                 <div
-                  className="promise-icon inline-flex items-center justify-center w-14 h-14 rounded-full mb-5 transition-all duration-300"
-                  style={{
-                    background: "rgba(16,185,129,0.06)",
-                    color: "var(--kq-em-mid)",
-                    border: "0.5px solid rgba(4, 120, 87, 0.3)",
-                  }}
+                  className="promise-icon kq-icon-circle inline-flex items-center justify-center w-14 h-14 rounded-full mb-5 transition-all duration-300"
+                  style={{ color: "var(--kq-em-mid)" }}
                 >
                   {card.icon}
                 </div>
@@ -358,14 +350,8 @@ export default function Home() {
               <div
                 key={i}
                 ref={addRevealRef}
-                className="reveal p-6 rounded-[6px]"
-                style={{
-                  background: "var(--kq-opal-deep)",
-                  borderLeft: "4px solid var(--kq-em-bright)",
-                  borderTop: "0.5px solid var(--kq-opal-rim)",
-                  borderRight: "0.5px solid var(--kq-opal-rim)",
-                  borderBottom: "0.5px solid var(--kq-opal-rim)",
-                }}
+                className="reveal kq-panel p-6"
+                style={{ borderLeft: "3px solid var(--kq-em-bright)", borderRadius: "4px 14px 14px 4px" }}
               >
                 <h3
                   className="text-base mb-3"
@@ -501,11 +487,7 @@ export default function Home() {
               <div
                 key={i}
                 ref={addRevealRef}
-                className="reveal p-6 rounded-[10px] relative"
-                style={{
-                  background: "var(--kq-opal-deep)",
-                  border: "0.5px solid var(--kq-opal-rim)",
-                }}
+                className="reveal kq-panel p-6 relative"
               >
                 <span
                   className="absolute top-3 left-5 text-6xl leading-none"
