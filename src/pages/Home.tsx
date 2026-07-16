@@ -2,7 +2,7 @@ import { Suspense, lazy, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useTransition } from "@/context/transition";
-import { BookOpen, MessageSquare, Target, Brain, Award, Users, Clock } from "lucide-react";
+import { BookOpen, Target, Brain, Award, Users, Clock } from "lucide-react";
 
 const HeroBrain = lazy(() => import("@/components/three/HeroBrain"));
 
@@ -240,68 +240,84 @@ export default function Home() {
         <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, var(--kq-obsidian) 0%, transparent 15%, transparent 85%, var(--kq-obsidian) 100%)" }} />
 
         <div className="container relative z-10">
-          <div ref={addRevealRef} className="reveal text-center mb-16">
-            <p className="eyebrow mb-4">Why Families Choose Kuriausity</p>
-            <h2
-              className="max-w-3xl mx-auto"
-              style={{
-                fontFamily: "var(--font-display)",
-                fontWeight: 400,
-                color: "var(--kq-em-pale)",
-              }}
-            >
-              The gap between{" "}
-              <em style={{ color: "var(--kq-em-light)", fontWeight: 400 }}>
-                potential
-              </em>{" "}
-              and performance is where we live.
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                icon: <Brain size={28} />,
-                title: "Diagnose First, Tutor Second",
-                desc: "We identify the root cognitive pattern before teaching content. Most tutors skip this step entirely — and students stay stuck.",
-              },
-              {
-                icon: <Target size={28} />,
-                title: "Cognition & Mindfulness Methods",
-                desc: "Every technique is backed by research in how the brain actually learns. No gimmicks. Just what works.",
-              },
-              {
-                icon: <MessageSquare size={28} />,
-                title: "Communication as Master Skill",
-                desc: "From debate to essays to executive function — we teach students to think clearly and express those thoughts effectively.",
-              },
-            ].map((card, i) => (
-              <div
-                key={i}
-                ref={addRevealRef}
-                className="reveal promise-card p-8 text-center transition-all duration-300"
-              >
-                <div
-                  className="promise-icon kq-icon-circle inline-flex items-center justify-center w-14 h-14 rounded-full mb-5 transition-all duration-300"
-                  style={{ color: "var(--kq-em-mid)" }}
-                >
-                  {card.icon}
-                </div>
-                <h3
-                  className="text-lg mb-3"
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-12 gap-y-10">
+            {/* Left: anchor headline, left-aligned, sticky on scroll */}
+            <div ref={addRevealRef} className="reveal lg:col-span-4">
+              <div className="lg:sticky lg:top-32">
+                <p className="eyebrow mb-4">Why Families Choose Kuriausity</p>
+                <h2
                   style={{
                     fontFamily: "var(--font-display)",
-                    fontWeight: 500,
+                    fontWeight: 400,
                     color: "var(--kq-em-pale)",
                   }}
                 >
-                  {card.title}
-                </h3>
-                <p style={{ color: "var(--kq-text-muted)", fontSize: "14px", lineHeight: 1.7 }}>
-                  {card.desc}
-                </p>
+                  The gap between{" "}
+                  <em style={{ color: "var(--kq-em-light)", fontWeight: 400 }}>
+                    potential
+                  </em>{" "}
+                  and performance is where we live.
+                </h2>
               </div>
-            ))}
+            </div>
+
+            {/* Right: ruled dossier list — no icons, no boxes */}
+            <div className="lg:col-span-8 lg:col-start-6">
+              <div className="space-y-12">
+                {[
+                  {
+                    mark: "I",
+                    title: "Diagnose First, Tutor Second",
+                    desc: "We identify the root cognitive pattern before teaching content. Most tutors skip this step entirely — and students stay stuck.",
+                  },
+                  {
+                    mark: "II",
+                    title: "Cognition & Mindfulness Methods",
+                    desc: "Every technique is backed by research in how the brain actually learns. No gimmicks. Just what works.",
+                  },
+                  {
+                    mark: "III",
+                    title: "Communication as Master Skill",
+                    desc: "From debate to essays to executive function — we teach students to think clearly and express those thoughts effectively.",
+                  },
+                ].map((card, i) => (
+                  <div
+                    key={i}
+                    ref={addRevealRef}
+                    className="reveal grid grid-cols-[auto_1fr] gap-6 pb-12 last:pb-0"
+                    style={{ borderBottom: i < 2 ? "0.5px solid var(--kq-opal-rim)" : "none" }}
+                  >
+                    <span
+                      style={{
+                        fontFamily: "var(--font-display)",
+                        fontStyle: "italic",
+                        fontSize: "2.75rem",
+                        lineHeight: 1,
+                        color: "var(--kq-em-mid)",
+                        opacity: 0.5,
+                      }}
+                    >
+                      {card.mark}
+                    </span>
+                    <div>
+                      <h3
+                        className="text-lg mb-2"
+                        style={{
+                          fontFamily: "var(--font-display)",
+                          fontWeight: 500,
+                          color: "var(--kq-em-pale)",
+                        }}
+                      >
+                        {card.title}
+                      </h3>
+                      <p style={{ color: "var(--kq-text-muted)", fontSize: "14px", lineHeight: 1.7 }}>
+                        {card.desc}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -328,11 +344,12 @@ export default function Home() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               {
                 title: "The Capable Underperformer",
-                desc: "Smart, but grades don't reflect it. Test anxiety, organizational issues, or never taught how to study.",
+                desc: "Smart, but grades don't reflect it. Test anxiety, organizational issues, or never taught how to study. This is the student we see most — and the gap closes fastest.",
+                featured: true,
               },
               {
                 title: "The High Achiever Pushing Further",
@@ -350,11 +367,11 @@ export default function Home() {
               <div
                 key={i}
                 ref={addRevealRef}
-                className="reveal kq-panel p-6"
+                className={`reveal kq-panel ${card.featured ? "md:col-span-2 lg:col-span-3 p-8" : "p-6"}`}
                 style={{ borderLeft: "3px solid var(--kq-em-bright)", borderRadius: "4px 14px 14px 4px" }}
               >
                 <h3
-                  className="text-base mb-3"
+                  className={card.featured ? "text-xl mb-3" : "text-base mb-3"}
                   style={{
                     fontFamily: "var(--font-display)",
                     fontWeight: 500,
@@ -363,7 +380,7 @@ export default function Home() {
                 >
                   {card.title}
                 </h3>
-                <p style={{ color: "var(--kq-text-muted)", fontSize: "14px", lineHeight: 1.7 }}>
+                <p style={{ color: "var(--kq-text-muted)", fontSize: card.featured ? "15px" : "14px", lineHeight: 1.7, maxWidth: card.featured ? "34rem" : undefined }}>
                   {card.desc}
                 </p>
               </div>
@@ -482,61 +499,60 @@ export default function Home() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {testimonials.map((t, i) => (
-              <div
-                key={i}
-                ref={addRevealRef}
-                className="reveal kq-panel p-6 relative"
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
+            {/* Featured testimonial — large, quiet, no card box */}
+            <div ref={addRevealRef} className="reveal lg:col-span-3 relative">
+              <span
+                className="block text-8xl leading-none mb-2"
+                style={{ fontFamily: "var(--font-display)", color: "var(--kq-em-light)", opacity: 0.25 }}
               >
-                <span
-                  className="absolute top-3 left-5 text-6xl leading-none"
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    color: "var(--kq-em-light)",
-                    opacity: 0.2,
-                  }}
-                >
-                  &ldquo;
-                </span>
-                <p
-                  className="relative z-10 italic mb-6 pt-8"
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    color: "var(--kq-text-primary)",
-                    fontSize: "15px",
-                    lineHeight: 1.7,
-                  }}
-                >
-                  {t.quote}
-                </p>
+                &ldquo;
+              </span>
+              <p
+                className="italic -mt-8 mb-6"
+                style={{
+                  fontFamily: "var(--font-display)",
+                  color: "var(--kq-text-primary)",
+                  fontSize: "clamp(1.15rem, 2vw, 1.5rem)",
+                  lineHeight: 1.5,
+                  fontWeight: 400,
+                }}
+              >
+                {testimonials[0].quote}
+              </p>
+              <div className="w-10 h-[2px] mb-3" style={{ background: "var(--kq-em-light)", opacity: 0.4 }} />
+              <p className="font-semibold text-sm" style={{ fontFamily: "var(--font-ui)", color: "var(--kq-em-pale)" }}>
+                {testimonials[0].name}
+              </p>
+              <p className="text-xs" style={{ fontFamily: "var(--font-ui)", color: "var(--kq-text-muted)" }}>
+                {testimonials[0].meta}
+              </p>
+            </div>
+
+            {/* Supporting testimonials — compact, stacked, ruled */}
+            <div className="lg:col-span-2 space-y-8">
+              {testimonials.slice(1).map((t, i) => (
                 <div
-                  className="w-10 h-[2px] mb-3"
-                  style={{
-                    background: "var(--kq-em-light)",
-                    opacity: 0.4,
-                  }}
-                />
-                <p
-                  className="font-semibold text-sm"
-                  style={{
-                    fontFamily: "var(--font-ui)",
-                    color: "var(--kq-em-pale)",
-                  }}
+                  key={i}
+                  ref={addRevealRef}
+                  className="reveal pl-5"
+                  style={{ borderLeft: "2px solid var(--kq-opal-rim)" }}
                 >
-                  {t.name}
-                </p>
-                <p
-                  className="text-xs"
-                  style={{
-                    fontFamily: "var(--font-ui)",
-                    color: "var(--kq-text-muted)",
-                  }}
-                >
-                  {t.meta}
-                </p>
-              </div>
-            ))}
+                  <p
+                    className="italic mb-3"
+                    style={{ fontFamily: "var(--font-body)", color: "var(--kq-text-primary)", fontSize: "14px", lineHeight: 1.7 }}
+                  >
+                    {t.quote}
+                  </p>
+                  <p className="font-semibold text-sm" style={{ fontFamily: "var(--font-ui)", color: "var(--kq-em-pale)" }}>
+                    {t.name}
+                  </p>
+                  <p className="text-xs" style={{ fontFamily: "var(--font-ui)", color: "var(--kq-text-muted)" }}>
+                    {t.meta}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
