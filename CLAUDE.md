@@ -59,14 +59,18 @@ gitignored; read them with the Read tool to actually look at the result.
   form type reads its own `VITE_*_ENDPOINT` env var (see `.env.example`); until
   that's set the payload is just logged to the console and the UI reports
   success, so forms are fully clickable/demoable before the backend exists.
-  The backend is a single Google Cloud Function (sibling project at
-  `../kuriausity-forms-backend`, separate git repo) that appends each
-  submission as a row into one of three tabs of a Google Sheet, routing by the
-  `formType` field. It uses the function's own runtime service account
-  (Application Default Credentials) rather than a key file — the Sheet just
-  needs to be shared with that service account as an Editor. All three
-  `VITE_*_ENDPOINT` vars should point at the same deployed function URL; see
-  that project's README.md for the full deploy/sheet-setup steps.
+  The backend is a Google Apps Script Web App (sibling project at
+  `../kuriausity-forms-backend`, separate git repo — `apps-script/Code.gs`)
+  bound to three Google Sheets, routing by the `formType` field. Deploying it
+  is paste-the-script-and-click, no CLI/GCP project/service account needed —
+  Apps Script runs as your own Google account, which already owns the sheets.
+  All three `VITE_*_ENDPOINT` vars point at the same deployed Web App URL; see
+  that project's README.md for the full setup. Note the request Content-Type
+  is deliberately `text/plain`, not `application/json` — see the comment in
+  `submitForm.ts` for why (Apps Script doesn't handle CORS preflight).
+  (There's also an unused Cloud Function version of the same idea in that
+  project's `index.js`, from before realizing Apps Script was simpler for
+  this — kept around in case a GCP-native version is ever wanted later.)
 - `public/images/` — all site imagery (large files; see `public/image-inventory.md`)
 - `vite.config.ts` — includes `kimi-plugin-inspect-react`, a dev-only inspector
   overlay plugin left over from the original Kimi platform; harmless to keep, safe
