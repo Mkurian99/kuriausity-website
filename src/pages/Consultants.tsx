@@ -179,7 +179,7 @@ export default function Consultants() {
             </p>
           </div>
 
-          <div className="flex flex-wrap justify-center max-w-4xl mx-auto" style={{ borderTop: "0.5px solid var(--kq-opal-rim)", borderBottom: "0.5px solid var(--kq-opal-rim)" }}>
+          <div className="grid grid-cols-4 max-w-5xl mx-auto" style={{ borderTop: "0.5px solid var(--kq-opal-rim)", borderBottom: "0.5px solid var(--kq-opal-rim)" }}>
             {[
               { name: "Karl Rove", title: "Former Deputy Chief of Staff" },
               { name: "William Lane Craig", title: "Philosopher & Theologian" },
@@ -189,13 +189,13 @@ export default function Consultants() {
               <div
                 key={i}
                 ref={addRevealRef}
-                className="reveal text-center py-8 px-8"
+                className="reveal text-center py-8 px-2 md:px-4"
                 style={{ borderLeft: i > 0 ? "0.5px solid var(--kq-opal-rim)" : "none" }}
               >
-                <p style={{ fontFamily: "var(--font-display)", fontStyle: "italic", fontWeight: 500, color: "var(--kq-em-pale)", fontSize: "17px" }}>
+                <p style={{ fontFamily: "var(--font-display)", fontStyle: "italic", fontWeight: 500, color: "var(--kq-em-pale)", fontSize: "clamp(12px, 2.2vw, 16px)", lineHeight: 1.3 }}>
                   {person.name}
                 </p>
-                <p style={{ fontFamily: "var(--font-ui)", fontSize: "11px", color: "var(--kq-text-muted)", marginTop: "6px", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                <p style={{ fontFamily: "var(--font-ui)", fontSize: "10px", color: "var(--kq-text-muted)", marginTop: "6px", textTransform: "uppercase", letterSpacing: "0.05em" }}>
                   {person.title}
                 </p>
               </div>
