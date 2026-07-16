@@ -55,41 +55,36 @@ export default function Contact() {
         <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, var(--kq-obsidian) 0%, transparent 15%, transparent 85%, var(--kq-obsidian) 100%)" }} />
 
         <div className="container relative z-10">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div
+            className="flex flex-col md:flex-row"
+            style={{ borderTop: "0.5px solid var(--kq-opal-rim)", borderBottom: "0.5px solid var(--kq-opal-rim)" }}
+          >
             {[
-              { icon: <Phone size={20} />, label: "Phone", value: "(713) 555-0147" },
-              { icon: <Mail size={20} />, label: "Email", value: "hello@kuriausity.com" },
-              { icon: <MapPin size={20} />, label: "Location", value: "Houston & Sugar Land, TX" },
-              { icon: <Clock size={20} />, label: "Hours", value: "Mon-Sat, 9am-7pm" },
+              { icon: <Phone size={15} />, label: "Phone", value: "(713) 555-0147" },
+              { icon: <Mail size={15} />, label: "Email", value: "hello@kuriausity.com" },
+              { icon: <MapPin size={15} />, label: "Location", value: "Houston & Sugar Land, TX" },
+              { icon: <Clock size={15} />, label: "Hours", value: "Mon-Sat, 9am-7pm" },
             ].map((item, i) => (
               <div
                 key={i}
-                className="kq-panel text-center p-6"
+                className="flex-1 flex items-center gap-3 py-6 px-6"
+                style={{ borderLeft: i > 0 ? "0.5px solid var(--kq-opal-rim)" : "none" }}
               >
-                <div
-                  className="kq-icon-circle inline-flex items-center justify-center w-12 h-12 rounded-full mb-3"
-                  style={{ color: "var(--kq-em-light)" }}
-                >
-                  {item.icon}
+                <span style={{ color: "var(--kq-em-mid)" }}>{item.icon}</span>
+                <div>
+                  <p
+                    className="text-[10px] uppercase tracking-wider"
+                    style={{ fontFamily: "var(--font-ui)", color: "var(--kq-text-muted)" }}
+                  >
+                    {item.label}
+                  </p>
+                  <p
+                    className="font-semibold text-sm"
+                    style={{ fontFamily: "var(--font-ui)", color: "var(--kq-em-pale)" }}
+                  >
+                    {item.value}
+                  </p>
                 </div>
-                <p
-                  className="text-xs uppercase tracking-wider mb-1"
-                  style={{
-                    fontFamily: "var(--font-ui)",
-                    color: "var(--kq-text-muted)",
-                  }}
-                >
-                  {item.label}
-                </p>
-                <p
-                  className="font-semibold text-sm"
-                  style={{
-                    fontFamily: "var(--font-ui)",
-                    color: "var(--kq-em-pale)",
-                  }}
-                >
-                  {item.value}
-                </p>
               </div>
             ))}
           </div>
