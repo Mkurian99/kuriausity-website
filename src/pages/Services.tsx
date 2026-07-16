@@ -258,17 +258,13 @@ export default function Services() {
             {/* Tier 1: Intensive */}
             <div
               ref={addRevealRef}
-              className="reveal tutoring-card p-8 rounded-[10px] relative overflow-hidden transition-all duration-300"
-              style={{
-                background: "rgba(13, 27, 43, 0.9)",
-                border: "0.5px solid rgba(36, 58, 78, 0.6)",
-              }}
+              className="reveal tutoring-card p-8 relative overflow-hidden transition-all duration-300"
             >
               <div className="absolute top-0 left-0 right-0 h-[3px]" style={{ background: "var(--kq-opal-grad)" }} />
               <div className="flex items-center gap-3 mb-5">
                 <div
-                  className="inline-flex items-center justify-center w-12 h-12 rounded-full"
-                  style={{ background: "rgba(16,185,129,0.10)", color: "var(--kq-em-light)", border: "0.5px solid var(--kq-em-mid)" }}
+                  className="kq-icon-circle inline-flex items-center justify-center w-12 h-12 rounded-full"
+                  style={{ color: "var(--kq-em-light)" }}
                 >
                   <Users size={22} />
                 </div>
@@ -314,17 +310,13 @@ export default function Services() {
             {/* Tier 2: Standard */}
             <div
               ref={addRevealRef}
-              className="reveal tutoring-card p-8 rounded-[10px] relative overflow-hidden transition-all duration-300"
-              style={{
-                background: "rgba(13, 27, 43, 0.9)",
-                border: "0.5px solid rgba(36, 58, 78, 0.6)",
-              }}
+              className="reveal tutoring-card p-8 relative overflow-hidden transition-all duration-300"
             >
               <div className="absolute top-0 left-0 right-0 h-[3px]" style={{ background: "linear-gradient(90deg, #059669, #2D9A5E)" }} />
               <div className="flex items-center gap-3 mb-5">
                 <div
-                  className="inline-flex items-center justify-center w-12 h-12 rounded-full"
-                  style={{ background: "rgba(16,185,129,0.10)", color: "var(--kq-em-light)", border: "0.5px solid var(--kq-em-mid)" }}
+                  className="kq-icon-circle inline-flex items-center justify-center w-12 h-12 rounded-full"
+                  style={{ color: "var(--kq-em-light)" }}
                 >
                   <Clock size={22} />
                 </div>
@@ -509,7 +501,7 @@ export default function Services() {
           <div ref={addRevealRef} className="reveal text-center mb-12">
             <div
               className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full"
-              style={{ background: "rgba(124,58,237,0.10)", border: "0.5px solid rgba(124,58,237,0.3)" }}
+              style={{ background: "rgba(124,58,237,0.14)" }}
             >
               <Sparkles size={14} style={{ color: "var(--kq-violet-soft)" }} />
               <span style={{ fontFamily: "var(--font-ui)", fontSize: "11px", fontWeight: 600, color: "var(--kq-violet-soft)", letterSpacing: "0.12em", textTransform: "uppercase" }}>
@@ -544,7 +536,7 @@ export default function Services() {
         <div className="container relative z-10">
           {/* Advisory Pricing Table */}
           <div className="max-w-3xl mx-auto" ref={addRevealRef}>
-            <div className="overflow-hidden rounded-[10px]" style={{ border: "0.5px solid var(--kq-opal-rim)" }}>
+            <div className="overflow-hidden rounded-[10px]" style={{ boxShadow: "var(--kq-shadow-lg)" }}>
               {/* Table header */}
               <div
                 className="grid grid-cols-3 gap-4 px-6 py-3"
