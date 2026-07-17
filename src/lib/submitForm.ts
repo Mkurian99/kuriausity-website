@@ -55,5 +55,21 @@ export async function submitForm(
     throw new Error(`Submission to "${type}" endpoint failed with status ${res.status}`);
   }
 
+  // Apps Script Web Apps always respond with HTTP 200, even when the script
+  // caught its own internal error (bad formType, can't open the sheet, etc.)
+  // and returned `{"error": "..."}"` as the body — so res.ok alone can't tell
+  // a real success from a logical failure. Parse the body and check it too.
+  let json: unknown;
+  try {
+    json = await res.json();
+  } catch {
+    throw new Error(`Submission to "${type}" endpoint returned a non-JSON response`);
+  }
+
+  if (!json || typeof json !== "object" || "error" in json) {
+    const message = json && typeof json === "object" && "error" in json ? String((json as { error: unknown }).error) : "unknown error";
+    throw new Error(`Submission to "${type}" endpoint failed: ${message}`);
+  }
+
   return { ok: true, mocked: false };
 }
