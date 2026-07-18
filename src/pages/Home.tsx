@@ -207,8 +207,8 @@ export default function Home() {
       <div className="credential-bar">
         {/* Barton Springs — faded backdrop behind the accolades ticker */}
         <div
-          className="absolute inset-0 bg-cover bg-center opacity-[0.24]"
-          style={{ backgroundImage: "url(/images/barton-springs-aerial.jpg)" }}
+          className="absolute inset-0 bg-cover opacity-[0.24]"
+          style={{ backgroundImage: "url(/images/barton-springs-aerial.jpg)", backgroundPosition: "center 68%" }}
         />
         <div
           className="absolute inset-0"
