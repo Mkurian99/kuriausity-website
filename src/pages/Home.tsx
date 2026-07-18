@@ -5,6 +5,7 @@ import { useTransition } from "@/context/transition";
 import { useStaggerReveal } from "@/hooks/useStaggerReveal";
 import Magnetic from "@/components/motion/Magnetic";
 import RevealWords from "@/components/motion/RevealWords";
+import PersonaCards from "@/components/motion/PersonaCards";
 import { BookOpen, Target, Brain, Award, Users, Clock } from "lucide-react";
 
 const HeroBrain = lazy(() => import("@/components/three/HeroBrain"));
@@ -351,47 +352,8 @@ export default function Home() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              {
-                title: "The Capable Underperformer",
-                desc: "Smart, but grades don't reflect it. Test anxiety, organizational issues, or never taught how to study. This is the student we see most — and the gap closes fastest.",
-                featured: true,
-              },
-              {
-                title: "The High Achiever Pushing Further",
-                desc: "Already doing well, but wants elite test scores, competitive debate rankings, or admission to top programs.",
-              },
-              {
-                title: "The Neurodiverse Thinker",
-                desc: "ADHD, anxiety, or other learning differences. Needs a tutor who understands how your brain works — not a one-size-fits-all approach.",
-              },
-              {
-                title: "The College-Bound Strategist",
-                desc: "Planning for LSAT, SAT, ACT, or college admissions. Needs more than practice tests — needs a system.",
-              },
-            ].map((card, i) => (
-              <div
-                key={i}
-                ref={addRevealRef}
-                className={`reveal kq-panel ${card.featured ? "md:col-span-2 lg:col-span-3 p-8" : "p-6"}`}
-                style={{ borderLeft: "3px solid var(--kq-em-bright)", borderRadius: "4px 14px 14px 4px" }}
-              >
-                <h3
-                  className={card.featured ? "text-xl mb-3" : "text-base mb-3"}
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    fontWeight: 500,
-                    color: "var(--kq-em-pale)",
-                  }}
-                >
-                  {card.title}
-                </h3>
-                <p style={{ color: "var(--kq-text-muted)", fontSize: card.featured ? "15px" : "14px", lineHeight: 1.7, maxWidth: card.featured ? "34rem" : undefined }}>
-                  {card.desc}
-                </p>
-              </div>
-            ))}
+          <div ref={addRevealRef} className="reveal">
+            <PersonaCards />
           </div>
         </div>
       </section>

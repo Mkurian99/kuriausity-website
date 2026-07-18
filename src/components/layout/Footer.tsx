@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import LogoMark from "@/components/layout/LogoMark";
 
 const quickLinks = [
   { path: "/", label: "Home" },
@@ -54,14 +55,14 @@ export default function Footer() {
               }}
             >
               <span
-                className="inline-flex items-center justify-center w-8 h-8 rounded-[6px] font-semibold text-sm"
+                className="inline-flex items-center justify-center w-8 h-8 rounded-[6px]"
                 style={{
                   background:
                     "linear-gradient(135deg, var(--kq-em-bright), var(--kq-mal-bright))",
                   color: "var(--kq-obsidian)",
                 }}
               >
-                K
+                <LogoMark size={19} />
               </span>
               Kuriausity
             </Link>

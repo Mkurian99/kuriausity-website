@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
 import { useTransition } from "@/context/transition";
 import Magnetic from "@/components/motion/Magnetic";
+import LogoMark from "@/components/layout/LogoMark";
 import { Menu, X } from "lucide-react";
 
 const navLinks = [
@@ -79,13 +80,13 @@ export default function Nav() {
           }}
         >
           <span
-            className="inline-flex items-center justify-center w-8 h-8 rounded-[6px] font-semibold text-sm"
+            className="inline-flex items-center justify-center w-8 h-8 rounded-[6px]"
             style={{
               background: "linear-gradient(135deg, var(--kq-em-bright), var(--kq-mal-bright))",
               color: "var(--kq-obsidian)",
             }}
           >
-            K
+            <LogoMark size={19} />
           </span>
           Kuriausity
         </Link>

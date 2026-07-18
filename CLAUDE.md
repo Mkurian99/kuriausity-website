@@ -98,15 +98,15 @@ settled in this session were preserved over Kimi's older versions of the same fi
 - **`PersonaCards`** (`src/components/motion/PersonaCards.tsx` + the
   `wood-carve`/`.persona-card*`/`.wildcard-chip*` CSS + `creature-*.png` in
   `public/images/`) — a flip-card "creature" metaphor for the four "Who This Is
-  For" student personas (originally Pokémon-flavored; the "Pikachu energy" /
-  "Charmander spirit" / etc. lines are already renamed to plain elemental
-  descriptions per Michael's note, but the deeper redesign he asked for — a
-  Hearthstone-style wood-carved card BORDER with the creature art itself colored
-  by element, plus an eyes-glow-on-hover-before-flip effect, all without
-  re-rendering the art — has NOT been built). **The component exists in the repo
-  but is not imported/rendered anywhere.** Michael is still testing this concept;
-  swap it in for the plain 4-card grid on Home's "Who This Is For" section only
-  when he confirms it's ready.
+  For" student personas, now wired into Home's "Who This Is For" section
+  (replacing the old plain 4-card grid, which is no longer used anywhere).
+  Originally Pokémon-flavored; the "Pikachu energy" / "Charmander spirit" / etc.
+  lines are renamed to plain elemental descriptions per Michael's note. The
+  deeper redesign he originally asked for on the Kimi chat — an explicit
+  eyes-glow-on-hover-before-flip effect (the source art already has
+  element-colored eyes baked in, so the glow rim on the card border currently
+  does similar work) — has not been separately built; revisit if he asks for it
+  specifically after seeing the live version.
 - Category icons + Sparkles badges on Services/Advisory, the icon-less
   wheel-scrollable filter bar on Services, and the Barton-Springs-successor
   backdrop images (`green-valley.jpg`, `forest-lake.jpg`, `artifact-prism.jpg`,
