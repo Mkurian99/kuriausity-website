@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { Search, FileText, Shield, Target, ArrowRight, Sparkles, BookOpen, Network } from "lucide-react";
+import { Search, FileText, Shield, Target, ArrowRight, BookOpen, Network } from "lucide-react";
 
 const processSteps = [
   {
@@ -87,7 +87,6 @@ export default function Advisory() {
               className="inline-flex items-center gap-2 mb-5 px-4 py-2 rounded-full"
               style={{ background: "rgba(124,58,237,0.14)" }}
             >
-              <Sparkles size={14} style={{ color: "var(--kq-violet-soft)" }} />
               <span
                 style={{
                   fontFamily: "var(--font-ui)",

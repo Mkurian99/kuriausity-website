@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { Check, Clock, Users, ArrowRight, BookOpen, MessageSquare, Target, Brain, Sparkles, Layout, Lightbulb, Heart } from "lucide-react";
+import { Check, Clock, Users, ArrowRight } from "lucide-react";
 
 /* ═══════════════ CATEGORY TABS ═══════════════ */
 const categories = [
@@ -161,17 +161,6 @@ const courses = [
   },
 
 ];
-
-/* ═══════════════ CATEGORY ICONS ═══════════════ */
-const categoryIcons: Record<string, React.ReactNode> = {
-  "All": <Layout size={14} />,
-  "Test Prep": <Target size={14} />,
-  "College Readiness": <BookOpen size={14} />,
-  "Communication & Debate": <MessageSquare size={14} />,
-  "Neurodiverse Support": <Brain size={14} />,
-  "Philosophy & Humanities": <Lightbulb size={14} />,
-  "Faith & Culture": <Heart size={14} />,
-};
 
 export default function Services() {
   const [activeFilter, setActiveFilter] = useState("All");
@@ -364,44 +353,46 @@ export default function Services() {
 
       {/* ═══════════════════ 90-DAY COURSES ═══════════════════ */}
       <section className="section relative overflow-hidden" style={{ background: "var(--kq-opal-mid)" }}>
+        {/* Barton Springs backdrop spans the full section (intro through the course
+            grid). The section is much taller than the source image, so a plain
+            background-size:cover would barely crop vertically and just show the
+            image's sky/skyline band at the top (behind the text) with the actual
+            water/greenery landing, unseen, behind the opaque course cards further
+            down. Zooming in via an oversized background-size + a position tuned to
+            the water/tree band keeps greenery visible for the section's full height. */}
+        <div
+          className="absolute inset-0 bg-no-repeat opacity-[0.24]"
+          style={{
+            backgroundImage: "url(/images/barton-springs-aerial.jpg)",
+            backgroundSize: "auto 150%",
+            backgroundPosition: "center 72%",
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{ background: "linear-gradient(to right, var(--kq-opal-mid) 0%, transparent 20%, transparent 80%, var(--kq-opal-mid) 100%)" }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{ background: "linear-gradient(to bottom, var(--kq-opal-mid) 0%, transparent 10%, transparent 90%, var(--kq-opal-mid) 100%)" }}
+        />
+
         <div className="container relative z-10">
-          {/* Barton Springs backdrop scoped to just the intro block — the section
-              itself is far taller than the image (full course grid below), so a
-              sitewide inset-0 background here would show almost no vertical crop
-              and the water/greenery would end up hidden behind the course cards
-              instead of behind the text. */}
-          <div
-            ref={addRevealRef}
-            className="reveal relative overflow-hidden text-center mb-12 py-10 -mx-6 px-6 rounded-2xl"
-          >
-            <div
-              className="absolute inset-0 bg-cover opacity-[0.32]"
-              style={{ backgroundImage: "url(/images/barton-springs-aerial.jpg)", backgroundPosition: "center 62%" }}
-            />
-            <div
-              className="absolute inset-0"
-              style={{ background: "linear-gradient(to right, var(--kq-opal-mid) 0%, transparent 20%, transparent 80%, var(--kq-opal-mid) 100%)" }}
-            />
-            <div
-              className="absolute inset-0"
-              style={{ background: "linear-gradient(to bottom, var(--kq-opal-mid) 0%, transparent 25%, transparent 75%, var(--kq-opal-mid) 100%)" }}
-            />
-            <div className="relative z-10">
-              <p className="eyebrow mb-4">90-Day Courses</p>
-              <h2
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontWeight: 400,
-                  color: "var(--kq-em-pale)",
-                }}
-              >
-                Immersive programs for{" "}
-                <em style={{ color: "var(--kq-em-light)" }}>permanent transformation</em>.
-              </h2>
-              <p className="subheadline max-w-2xl mx-auto mt-4" style={{ color: "var(--kq-text-muted)" }}>
-                Each course is a structured 90-day (or 120-day) engagement designed to rewire how your student thinks — not just improve their grades.
-              </p>
-            </div>
+          <div ref={addRevealRef} className="reveal text-center mb-12">
+            <p className="eyebrow mb-4">90-Day Courses</p>
+            <h2
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 400,
+                color: "var(--kq-em-pale)",
+              }}
+            >
+              Immersive programs for{" "}
+              <em style={{ color: "var(--kq-em-light)" }}>permanent transformation</em>.
+            </h2>
+            <p className="subheadline max-w-2xl mx-auto mt-4" style={{ color: "var(--kq-text-muted)" }}>
+              Each course is a structured 90-day (or 120-day) engagement designed to rewire how your student thinks — not just improve their grades.
+            </p>
           </div>
 
           {/* Filter Bar */}
@@ -419,12 +410,8 @@ export default function Services() {
                   key={cat}
                   onClick={() => setActiveFilter(cat)}
                   className={`filter-btn ${activeFilter === cat ? "active" : ""}`}
-                  title={cat}
                 >
-                  <span className="flex items-center gap-1.5">
-                    {categoryIcons[cat]}
-                    <span className="hidden sm:inline">{cat}</span>
-                  </span>
+                  {cat}
                 </button>
               ))}
             </div>
@@ -520,7 +507,6 @@ export default function Services() {
               className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full"
               style={{ background: "rgba(124,58,237,0.14)" }}
             >
-              <Sparkles size={14} style={{ color: "var(--kq-violet-soft)" }} />
               <span style={{ fontFamily: "var(--font-ui)", fontSize: "11px", fontWeight: 600, color: "var(--kq-violet-soft)", letterSpacing: "0.12em", textTransform: "uppercase" }}>
                 Advisory Services
               </span>
