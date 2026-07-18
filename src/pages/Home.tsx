@@ -202,33 +202,37 @@ export default function Home() {
           </motion.div>
         </div>
 
-        {/* Scroll indicator */}
-        <div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
-          style={{
-            fontFamily: "var(--font-ui)",
-            fontSize: "0.65rem",
-            color: "var(--kq-em-light)",
-            opacity: 0.3,
-            textTransform: "uppercase",
-            letterSpacing: "0.4em",
-          }}
-        >
-          Scroll
-        </div>
       </section>
 
       {/* ========== CREDENTIAL BAR ========== */}
       <div className="credential-bar">
-        <div className="container">
-          <div className="credential-bar__inner flex items-center justify-center gap-0 min-w-max">
-            {credentials.map((cred, i) => (
-              <div key={i} className="credential-pill">
-                {cred.icon}
-                <span>{cred.text}</span>
-              </div>
-            ))}
-          </div>
+        {/* Barton Springs — faded backdrop behind the accolades ticker */}
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-[0.16]"
+          style={{ backgroundImage: "url(/images/barton-springs-strip.png)" }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to right, var(--kq-opal-deep) 0%, transparent 20%, transparent 80%, var(--kq-opal-deep) 100%)",
+          }}
+        />
+        <div className="credential-track relative z-10">
+          {[0, 1].map((setIndex) => (
+            <div
+              key={setIndex}
+              className="flex items-center gap-0"
+              aria-hidden={setIndex === 1 ? "true" : undefined}
+            >
+              {credentials.map((cred, i) => (
+                <div key={i} className="credential-pill">
+                  {cred.icon}
+                  <span>{cred.text}</span>
+                </div>
+              ))}
+            </div>
+          ))}
         </div>
       </div>
 

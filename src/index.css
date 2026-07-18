@@ -373,15 +373,33 @@
 }
 .filter-bar::-webkit-scrollbar { display: none; }
 
-/* Credential bar */
+/* Credential bar — auto-scrolling accolades ticker */
 .credential-bar {
+  position: relative;
   background: var(--kq-opal-deep);
   border-top: 0.5px solid var(--kq-opal-rim);
   border-bottom: 0.5px solid var(--kq-opal-rim);
-  overflow-x: auto;
-  scrollbar-width: none;
+  overflow: hidden;
 }
-.credential-bar::-webkit-scrollbar { display: none; }
+
+.credential-track {
+  display: flex;
+  width: max-content;
+  animation: credential-marquee 32s linear infinite;
+}
+
+.credential-bar:hover .credential-track {
+  animation-play-state: paused;
+}
+
+@keyframes credential-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .credential-track { animation: none; }
+}
 
 .credential-pill {
   display: inline-flex;
