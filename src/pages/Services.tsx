@@ -367,15 +367,15 @@ export default function Services() {
 
       {/* ═══════════════════ 90-DAY COURSES ═══════════════════ */}
       <section className="section relative overflow-hidden" style={{ background: "var(--kq-opal-mid)" }}>
-        {/* Barton Springs backdrop is visible behind the intro banner, then fades
+        {/* Green valley backdrop is visible behind the intro banner, then fades
             to fully covered by the third row of course cards — a banner accent,
             not a backdrop for the whole grid. */}
         <div
           className="absolute inset-0 bg-no-repeat opacity-[0.24]"
           style={{
-            backgroundImage: "url(/images/barton-springs-aerial.jpg)",
+            backgroundImage: "url(/images/green-valley.jpg)",
             backgroundSize: "auto 150%",
-            backgroundPosition: "center 72%",
+            backgroundPosition: "center 30%",
           }}
         />
         <div

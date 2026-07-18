@@ -61,16 +61,6 @@ const testimonials = [
   },
 ];
 
-// Credential pills
-const credentials = [
-  { text: "Rice University M.A." },
-  { text: "9th Nationally in LD Debate" },
-  { text: "M.A. Rice University" },
-  { text: "Published Scholar" },
-  { text: "Decade of Experience" },
-  { text: "Measurable Results" },
-];
-
 export default function Home() {
   const { startResults, diving } = useTransition();
   const revealRefs = useRef<HTMLDivElement[]>([]);
@@ -203,35 +193,40 @@ export default function Home() {
 
       </section>
 
-      {/* ========== CREDENTIAL BAR ========== */}
-      <div className="credential-bar">
-        {/* Barton Springs — near-invisible backdrop texture behind the accolades ticker */}
-        <div
-          className="absolute inset-0 bg-cover opacity-[0.03]"
-          style={{ backgroundImage: "url(/images/barton-springs-aerial.jpg)", backgroundPosition: "center 68%" }}
-        />
-        <div className="absolute inset-0" style={{ background: "var(--kq-opal-deep)", opacity: 0.85 }} />
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(to right, var(--kq-opal-deep) 0%, transparent 20%, transparent 80%, var(--kq-opal-deep) 100%)",
-          }}
-        />
-        <div className="credential-track relative z-10">
-          {[0, 1].map((setIndex) => (
-            <div
-              key={setIndex}
-              className="flex items-center gap-0"
-              aria-hidden={setIndex === 1 ? "true" : undefined}
-            >
-              {credentials.map((cred, i) => (
-                <div key={i} className="credential-pill">
-                  <span>{cred.text}</span>
-                </div>
-              ))}
+      {/* ========== CREDENTIALS STRIP ========== */}
+      <div
+        style={{
+          background: "var(--kq-opal-deep)",
+          borderTop: "0.5px solid var(--kq-opal-rim)",
+          borderBottom: "0.5px solid var(--kq-opal-rim)",
+          padding: "52px 0",
+        }}
+      >
+        <div className="container">
+          <div ref={addRevealRef} className="reveal text-center" style={{ maxWidth: "760px", margin: "0 auto" }}>
+            <div className="flex items-center justify-center gap-4 mb-5">
+              <span style={{ width: "36px", height: "1px", background: "var(--kq-opal-rim)" }} />
+              <p className="eyebrow" style={{ margin: 0 }}>Credentials</p>
+              <span style={{ width: "36px", height: "1px", background: "var(--kq-opal-rim)" }} />
             </div>
-          ))}
+            <p
+              style={{
+                fontFamily: "var(--font-display)",
+                fontStyle: "italic",
+                fontWeight: 400,
+                fontSize: "clamp(1.15rem, 2.2vw, 1.5rem)",
+                lineHeight: 1.55,
+                color: "var(--kq-em-pale)",
+              }}
+            >
+              A Rice University M.A., a nationally ranked debater, and a decade
+              of measurable results —{" "}
+              <em style={{ color: "var(--kq-em-light)" }}>
+                one mind now devoted entirely to yours
+              </em>
+              .
+            </p>
+          </div>
         </div>
       </div>
 

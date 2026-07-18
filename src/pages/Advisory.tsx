@@ -149,8 +149,20 @@ export default function Advisory() {
       </section>
 
       {/* ═══════════════ THE PROCESS ═══════════════ */}
-      <section className="section" style={{ background: "var(--kq-obsidian)" }}>
-        <div className="container">
+      <section className="section relative overflow-hidden" style={{ background: "var(--kq-obsidian)" }}>
+        <div
+          className="absolute inset-0 bg-cover opacity-[0.14]"
+          style={{ backgroundImage: "url(/images/forest-lake.jpg)", backgroundPosition: "center 35%" }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{ background: "linear-gradient(to right, var(--kq-obsidian) 0%, transparent 25%, transparent 75%, var(--kq-obsidian) 100%)" }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{ background: "linear-gradient(to bottom, var(--kq-obsidian) 0%, transparent 15%, transparent 85%, var(--kq-obsidian) 100%)" }}
+        />
+        <div className="container relative z-10">
           <div ref={addRevealRef} className="reveal text-center mb-14">
             <p className="eyebrow mb-4">The Method</p>
             <h2
@@ -204,8 +216,20 @@ export default function Advisory() {
       </section>
 
       {/* ═══════════════ WHAT YOU RECEIVE ═══════════════ */}
-      <section className="section" style={{ background: "var(--kq-opal-mid)" }}>
-        <div className="container">
+      <section className="section relative overflow-hidden" style={{ background: "var(--kq-opal-mid)" }}>
+        <div
+          className="absolute inset-0 bg-cover opacity-[0.16]"
+          style={{ backgroundImage: "url(/images/artifact-prism.jpg)", backgroundPosition: "center 40%" }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{ background: "linear-gradient(to right, var(--kq-opal-mid) 0%, transparent 25%, transparent 75%, var(--kq-opal-mid) 100%)" }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{ background: "linear-gradient(to bottom, var(--kq-opal-mid) 0%, transparent 15%, transparent 85%, var(--kq-opal-mid) 100%)" }}
+        />
+        <div className="container relative z-10">
           <div ref={addRevealRef} className="reveal text-center mb-12">
             <p className="eyebrow mb-4">Deliverables</p>
             <h2
