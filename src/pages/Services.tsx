@@ -364,27 +364,44 @@ export default function Services() {
 
       {/* ═══════════════════ 90-DAY COURSES ═══════════════════ */}
       <section className="section relative overflow-hidden" style={{ background: "var(--kq-opal-mid)" }}>
-        {/* Barton Springs aerial — a bit more present than the usual texture backdrop */}
-        <div className="absolute inset-0 bg-cover opacity-[0.24]" style={{ backgroundImage: "url(/images/barton-springs-aerial.jpg)", backgroundPosition: "center 68%" }} />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(to right, var(--kq-opal-mid) 0%, transparent 25%, transparent 75%, var(--kq-opal-mid) 100%)" }} />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, var(--kq-opal-mid) 0%, transparent 15%, transparent 85%, var(--kq-opal-mid) 100%)" }} />
-
         <div className="container relative z-10">
-          <div ref={addRevealRef} className="reveal text-center mb-12">
-            <p className="eyebrow mb-4">90-Day Courses</p>
-            <h2
-              style={{
-                fontFamily: "var(--font-display)",
-                fontWeight: 400,
-                color: "var(--kq-em-pale)",
-              }}
-            >
-              Immersive programs for{" "}
-              <em style={{ color: "var(--kq-em-light)" }}>permanent transformation</em>.
-            </h2>
-            <p className="subheadline max-w-2xl mx-auto mt-4" style={{ color: "var(--kq-text-muted)" }}>
-              Each course is a structured 90-day (or 120-day) engagement designed to rewire how your student thinks — not just improve their grades.
-            </p>
+          {/* Barton Springs backdrop scoped to just the intro block — the section
+              itself is far taller than the image (full course grid below), so a
+              sitewide inset-0 background here would show almost no vertical crop
+              and the water/greenery would end up hidden behind the course cards
+              instead of behind the text. */}
+          <div
+            ref={addRevealRef}
+            className="reveal relative overflow-hidden text-center mb-12 py-10 -mx-6 px-6 rounded-2xl"
+          >
+            <div
+              className="absolute inset-0 bg-cover opacity-[0.32]"
+              style={{ backgroundImage: "url(/images/barton-springs-aerial.jpg)", backgroundPosition: "center 62%" }}
+            />
+            <div
+              className="absolute inset-0"
+              style={{ background: "linear-gradient(to right, var(--kq-opal-mid) 0%, transparent 20%, transparent 80%, var(--kq-opal-mid) 100%)" }}
+            />
+            <div
+              className="absolute inset-0"
+              style={{ background: "linear-gradient(to bottom, var(--kq-opal-mid) 0%, transparent 25%, transparent 75%, var(--kq-opal-mid) 100%)" }}
+            />
+            <div className="relative z-10">
+              <p className="eyebrow mb-4">90-Day Courses</p>
+              <h2
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 400,
+                  color: "var(--kq-em-pale)",
+                }}
+              >
+                Immersive programs for{" "}
+                <em style={{ color: "var(--kq-em-light)" }}>permanent transformation</em>.
+              </h2>
+              <p className="subheadline max-w-2xl mx-auto mt-4" style={{ color: "var(--kq-text-muted)" }}>
+                Each course is a structured 90-day (or 120-day) engagement designed to rewire how your student thinks — not just improve their grades.
+              </p>
+            </div>
           </div>
 
           {/* Filter Bar */}
