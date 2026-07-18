@@ -205,11 +205,12 @@ export default function Home() {
 
       {/* ========== CREDENTIAL BAR ========== */}
       <div className="credential-bar">
-        {/* Barton Springs — faded backdrop behind the accolades ticker */}
+        {/* Barton Springs — near-invisible backdrop texture behind the accolades ticker */}
         <div
-          className="absolute inset-0 bg-cover opacity-[0.24]"
+          className="absolute inset-0 bg-cover opacity-[0.03]"
           style={{ backgroundImage: "url(/images/barton-springs-aerial.jpg)", backgroundPosition: "center 68%" }}
         />
+        <div className="absolute inset-0" style={{ background: "var(--kq-opal-deep)", opacity: 0.85 }} />
         <div
           className="absolute inset-0"
           style={{

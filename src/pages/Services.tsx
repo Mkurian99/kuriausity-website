@@ -165,6 +165,20 @@ const courses = [
 export default function Services() {
   const [activeFilter, setActiveFilter] = useState("All");
   const revealRefs = useRef<HTMLDivElement[]>([]);
+  const filterBarRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = filterBarRef.current;
+    if (!el) return;
+    const onWheel = (e: WheelEvent) => {
+      if (el.scrollWidth <= el.clientWidth) return;
+      const delta = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+      e.preventDefault();
+      el.scrollLeft += delta;
+    };
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => el.removeEventListener("wheel", onWheel);
+  }, []);
 
   const filteredCourses =
     activeFilter === "All"
@@ -353,13 +367,9 @@ export default function Services() {
 
       {/* ═══════════════════ 90-DAY COURSES ═══════════════════ */}
       <section className="section relative overflow-hidden" style={{ background: "var(--kq-opal-mid)" }}>
-        {/* Barton Springs backdrop spans the full section (intro through the course
-            grid). The section is much taller than the source image, so a plain
-            background-size:cover would barely crop vertically and just show the
-            image's sky/skyline band at the top (behind the text) with the actual
-            water/greenery landing, unseen, behind the opaque course cards further
-            down. Zooming in via an oversized background-size + a position tuned to
-            the water/tree band keeps greenery visible for the section's full height. */}
+        {/* Barton Springs backdrop is visible behind the intro banner, then fades
+            to fully covered by the third row of course cards — a banner accent,
+            not a backdrop for the whole grid. */}
         <div
           className="absolute inset-0 bg-no-repeat opacity-[0.24]"
           style={{
@@ -374,7 +384,7 @@ export default function Services() {
         />
         <div
           className="absolute inset-0"
-          style={{ background: "linear-gradient(to bottom, var(--kq-opal-mid) 0%, transparent 10%, transparent 90%, var(--kq-opal-mid) 100%)" }}
+          style={{ background: "linear-gradient(to bottom, transparent 0%, var(--kq-opal-mid) 55%, var(--kq-opal-mid) 100%)" }}
         />
 
         <div className="container relative z-10">
@@ -397,6 +407,7 @@ export default function Services() {
 
           {/* Filter Bar */}
           <div
+            ref={filterBarRef}
             className="filter-bar sticky top-[72px] z-[100] py-3 mb-10"
             style={{
               background: "var(--kq-opal-deep)",
