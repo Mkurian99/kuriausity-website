@@ -167,7 +167,7 @@ export default function About() {
                   src="/images/thesis-presentation.jpg"
                   alt="Michael Kurian presenting his thesis research"
                   className="w-full h-full object-cover"
-                  style={{ objectPosition: "50% -10%", transform: "scale(1.25)" }}
+                  style={{ objectPosition: "50% 0%", transform: "scale(1.3)", transformOrigin: "50% 0%" }}
                 />
                 {/* Bottom gradient for text legibility */}
                 <div
