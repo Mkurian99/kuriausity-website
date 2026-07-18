@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useStaggerReveal } from "@/hooks/useStaggerReveal";
 
 const blogPosts = [
   {
@@ -52,33 +52,7 @@ const blogPosts = [
 ];
 
 export default function Blog() {
-  const revealRefs = useRef<HTMLDivElement[]>([]);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
-    );
-
-    revealRefs.current.forEach((el) => {
-      if (el) observer.observe(el);
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
-  const addRevealRef = (el: HTMLDivElement | null) => {
-    if (el && !revealRefs.current.includes(el)) {
-      revealRefs.current.push(el);
-    }
-  };
+  const addRevealRef = useStaggerReveal();
 
   return (
     <div style={{ paddingTop: "72px" }}>

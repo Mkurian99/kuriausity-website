@@ -35,10 +35,7 @@ export default function Footer() {
       }}
     >
       {/* Accent gradient bar */}
-      <div
-        className="h-[3px] w-full"
-        style={{ background: "var(--kq-opal-grad)" }}
-      />
+      <div className="h-[3px] w-full kq-grad-bar" />
 
       <div className="container py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">

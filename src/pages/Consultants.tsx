@@ -1,5 +1,6 @@
-import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import { useStaggerReveal } from "@/hooks/useStaggerReveal";
+import Magnetic from "@/components/motion/Magnetic";
 import { GraduationCap, Star, Users, BookOpen } from "lucide-react";
 
 /*
@@ -93,31 +94,7 @@ const potentialConsultants = [
 ];
 
 export default function Consultants() {
-  const revealRefs = useRef<HTMLDivElement[]>([]);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.08, rootMargin: "0px 0px -40px 0px" }
-    );
-    revealRefs.current.forEach((el) => {
-      if (el) observer.observe(el);
-    });
-    return () => observer.disconnect();
-  }, []);
-
-  const addRevealRef = (el: HTMLDivElement | null) => {
-    if (el && !revealRefs.current.includes(el)) {
-      revealRefs.current.push(el);
-    }
-  };
+  const addRevealRef = useStaggerReveal();
 
   return (
     <div style={{ paddingTop: "72px" }}>
@@ -349,9 +326,11 @@ export default function Consultants() {
             <p className="max-w-xl mx-auto mb-8" style={{ color: "var(--kq-em-pale)", fontSize: "16px", opacity: 0.8 }}>
               The discovery call is where we assess what your student needs and which consultants in the network can help. Every engagement includes access to the full consultant network at no additional cost.
             </p>
-            <Link to="/contact" className="btn-gold">
-              Book a Free Discovery Call
-            </Link>
+            <Magnetic>
+              <Link to="/contact" className="btn-gold">
+                Book a Free Discovery Call
+              </Link>
+            </Magnetic>
           </div>
         </div>
       </section>

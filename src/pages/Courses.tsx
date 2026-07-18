@@ -1,5 +1,7 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useStaggerReveal } from "@/hooks/useStaggerReveal";
+import Magnetic from "@/components/motion/Magnetic";
 import { BookOpen, Clock, Users, ArrowRight, CheckCircle } from "lucide-react";
 
 interface CourseDetail {
@@ -380,25 +382,9 @@ const courseDetails: CourseDetail[] = [
 ];
 
 export default function Courses() {
-  const revealRefs = useRef<HTMLDivElement[]>([]);
+  const addRevealRef = useStaggerReveal();
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.05, rootMargin: "0px 0px -40px 0px" }
-    );
-
-    revealRefs.current.forEach((el) => {
-      if (el) observer.observe(el);
-    });
-
     // Handle anchor scroll after page load
     const hash = window.location.hash;
     if (hash) {
@@ -409,15 +395,7 @@ export default function Courses() {
         }
       }, 300);
     }
-
-    return () => observer.disconnect();
   }, []);
-
-  const addRevealRef = (el: HTMLDivElement | null) => {
-    if (el && !revealRefs.current.includes(el)) {
-      revealRefs.current.push(el);
-    }
-  };
 
   return (
     <div style={{ paddingTop: "72px" }}>
@@ -632,9 +610,11 @@ export default function Courses() {
             <p className="max-w-xl mx-auto mb-8" style={{ color: "var(--kq-em-pale)", fontSize: "16px", opacity: 0.8 }}>
               The discovery call is free and without obligation. We'll discuss which course fits your student's goals, learning style, and timeline.
             </p>
-            <Link to="/contact" className="btn-gold">
-              Book a Free Discovery Call
-            </Link>
+            <Magnetic>
+              <Link to="/contact" className="btn-gold">
+                Book a Free Discovery Call
+              </Link>
+            </Magnetic>
           </div>
         </div>
       </section>

@@ -1,4 +1,5 @@
-import { useEffect, useRef } from "react";
+import { useStaggerReveal } from "@/hooks/useStaggerReveal";
+import Magnetic from "@/components/motion/Magnetic";
 import { GraduationCap } from "lucide-react";
 
 const timeline = [
@@ -89,33 +90,7 @@ const coConsultants = [
 ];
 
 export default function About() {
-  const revealRefs = useRef<HTMLDivElement[]>([]);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
-    );
-
-    revealRefs.current.forEach((el) => {
-      if (el) observer.observe(el);
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
-  const addRevealRef = (el: HTMLDivElement | null) => {
-    if (el && !revealRefs.current.includes(el)) {
-      revealRefs.current.push(el);
-    }
-  };
+  const addRevealRef = useStaggerReveal();
 
   return (
     <div style={{ paddingTop: "72px" }}>
@@ -580,9 +555,11 @@ export default function About() {
               The discovery call is where we figure out if Kuriausity is the right
               fit for your student. No pressure. Just clarity.
             </p>
-            <a href="/contact" className="btn-primary">
-              Book a Free Discovery Call
-            </a>
+            <Magnetic>
+              <a href="/contact" className="btn-primary">
+                Book a Free Discovery Call
+              </a>
+            </Magnetic>
           </div>
         </div>
       </section>

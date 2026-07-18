@@ -353,16 +353,22 @@
   color: var(--kq-em-light);
 }
 
-/* Scroll reveal */
+/* Scroll reveal — rise + de-blur, with per-batch stagger via --reveal-delay */
 .reveal {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 600ms ease-out, transform 600ms ease-out;
+  transform: translateY(28px);
+  filter: blur(8px);
+  transition:
+    opacity 700ms cubic-bezier(.22,1,.36,1) var(--reveal-delay, 0ms),
+    transform 700ms cubic-bezier(.22,1,.36,1) var(--reveal-delay, 0ms),
+    filter 700ms cubic-bezier(.22,1,.36,1) var(--reveal-delay, 0ms);
+  will-change: opacity, transform, filter;
 }
 
 .reveal.visible {
   opacity: 1;
   transform: translateY(0);
+  filter: blur(0);
 }
 
 /* Filter bar — hide scrollbar */
@@ -372,4 +378,480 @@
   -ms-overflow-style: none;
 }
 .filter-bar::-webkit-scrollbar { display: none; }
+
+/* Credential bar */
+.credential-bar {
+  background: var(--kq-opal-deep);
+  border-top: 0.5px solid var(--kq-opal-rim);
+  border-bottom: 0.5px solid var(--kq-opal-rim);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.credential-bar::-webkit-scrollbar { display: none; }
+
+.credential-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  font-family: var(--font-ui);
+  font-size: 11px;
+  color: var(--kq-text-muted);
+  white-space: nowrap;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+}
+
+.credential-pill svg { flex-shrink: 0; width: 16px; height: 16px; color: var(--kq-em-light); }
+
+.credential-pill + .credential-pill { border-left: 1px solid rgba(255,255,255,0.08); }
+
+/* ═══════════════════════════════════════════════════════════════════
+   ELITE MOTION SYSTEM — additive design layer (no content changes)
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* --- Cursor-tracked sheen on every card surface -------------------- */
+.course-detail-card,
+.course-card,
+.consultant-card,
+.tutoring-card,
+.value-card,
+.promise-card,
+.scenario-card,
+.testimonial-card,
+.blog-card,
+.kq-panel {
+  transform-style: preserve-3d;
+}
+
+.course-detail-card::after,
+.course-card::after,
+.consultant-card::after,
+.tutoring-card::after,
+.value-card::after,
+.promise-card::after,
+.kq-panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 400ms ease;
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 50%),
+    color-mix(in srgb, var(--panel-accent, var(--course-accent, var(--kq-em-light))) 13%, transparent) 0%,
+    transparent 65%
+  );
+}
+
+.course-detail-card:hover::after,
+.course-card:hover::after,
+.consultant-card:hover::after,
+.tutoring-card:hover::after,
+.value-card:hover::after,
+.promise-card:hover::after,
+.kq-panel:hover::after {
+  opacity: 1;
+}
+
+/* --- Animated gradient bar (nav top + footer top) ------------------- */
+@keyframes kq-grad-slide {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.kq-grad-bar {
+  background: var(--kq-opal-grad);
+  background-size: 220% 100%;
+  animation: kq-grad-slide 9s ease-in-out infinite;
+}
+
+/* --- Credential marquee -------------------------------------------- */
+@keyframes kq-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.credential-marquee {
+  display: flex;
+  width: max-content;
+  animation: kq-marquee 36s linear infinite;
+}
+
+.credential-marquee:hover { animation-play-state: paused; }
+
+/* --- Serene field (the "world" beyond the brain) -------------------- */
+@keyframes kq-drift-a {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%      { transform: translate(4%, -6%) scale(1.08); }
+  66%      { transform: translate(-3%, 4%) scale(0.96); }
+}
+@keyframes kq-drift-b {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  40%      { transform: translate(-5%, 5%) scale(1.1); }
+  70%      { transform: translate(4%, -3%) scale(0.94); }
+}
+@keyframes kq-drift-c {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%      { transform: translate(3%, 6%) scale(1.12); }
+}
+
+.serene-blob {
+  position: absolute;
+  border-radius: 9999px;
+  /* No blur() filter: the radial-gradient falloff already reads as a soft
+     glow, and animating a blurred element forces constant re-rasterization
+     on software-composited devices. */
+  pointer-events: none;
+  will-change: transform;
+}
+.serene-blob--a { animation: kq-drift-a 22s ease-in-out infinite; }
+.serene-blob--b { animation: kq-drift-b 27s ease-in-out infinite; }
+.serene-blob--c { animation: kq-drift-c 31s ease-in-out infinite; }
+
+/* --- Video placeholder tiles --------------------------------------- */
+@keyframes kq-play-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(5, 150, 105, 0.28); }
+  70%  { box-shadow: 0 0 0 18px rgba(5, 150, 105, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(5, 150, 105, 0); }
+}
+
+.video-tile {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  transition: transform 400ms cubic-bezier(.22,1,.36,1), box-shadow 400ms ease;
+}
+.video-tile:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 48px -20px rgba(5, 150, 105, 0.35);
+}
+.video-tile__play {
+  animation: kq-play-pulse 2.6s ease-out infinite;
+}
+
+/* --- Brain hover hint (hero) ---------------------------------------- */
+@keyframes kq-hint-ring {
+  0%   { transform: scale(0.9); opacity: 0.7; }
+  70%  { transform: scale(1.6); opacity: 0; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+.brain-hint__ring::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  border: 1px solid var(--kq-em-light);
+  animation: kq-hint-ring 2.2s ease-out infinite;
+}
+
+/* --- Thin emerald scrollbar ------------------------------------------ */
+html { scrollbar-width: thin; scrollbar-color: var(--kq-opal-rim) var(--kq-obsidian); }
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--kq-obsidian); }
+::-webkit-scrollbar-thumb {
+  background: var(--kq-opal-rim);
+  border-radius: 8px;
+  border: 2px solid var(--kq-obsidian);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--kq-em-mid); }
+
+/* --- Word-mask reveal primitives ------------------------------------- */
+.mask-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-bottom: 0.08em; /* keep descenders inside the mask */
+  margin-bottom: -0.08em;
+}
+.mask-word > span {
+  display: inline-block;
+  will-change: transform;
+}
+
+/* --- Reduced motion: everything settles instantly -------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    transition-duration: 1ms !important;
+    transition-delay: 0ms !important;
+    filter: none;
+  }
+  .credential-marquee,
+  .serene-blob--a,
+  .serene-blob--b,
+  .serene-blob--c,
+  .kq-grad-bar,
+  .video-tile__play,
+  .brain-hint__ring::before {
+    animation: none !important;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   PERSONA CARDS — emerald wood carvings with elemental glow
+   (Not currently wired into any page — kept ready for future testing
+   of the creature-metaphor "Who This Is For" concept. See CLAUDE.md.)
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Carved emerald wood — layered grain, chisel marks, deep polish */
+.wood-carve {
+  background:
+    radial-gradient(130% 90% at 50% -10%, rgba(110, 231, 183, 0.14), transparent 55%),
+    radial-gradient(100% 80% at 50% 115%, rgba(4, 56, 36, 0.55), transparent 60%),
+    repeating-linear-gradient(93deg, rgba(0, 0, 0, 0.20) 0 2px, transparent 2px 8px),
+    repeating-linear-gradient(88deg, rgba(255, 255, 255, 0.025) 0 1px, transparent 1px 11px),
+    repeating-linear-gradient(2deg, rgba(0, 0, 0, 0.10) 0 1px, transparent 1px 22px),
+    linear-gradient(158deg, #113325 0%, #0C241A 38%, #0E2B1F 62%, #0A1F16 100%);
+}
+
+.persona-card {
+  --el: #4ADE80;
+  perspective: 1400px;
+  aspect-ratio: 5 / 7;
+  cursor: pointer;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.persona-card__inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 780ms cubic-bezier(.22, 1, .36, 1);
+}
+
+/* Hover flips on precise pointers; click/tap toggles everywhere */
+@media (hover: hover) and (pointer: fine) {
+  .persona-card:hover .persona-card__inner { transform: rotateY(180deg); }
+}
+.persona-card.is-flipped .persona-card__inner { transform: rotateY(180deg); }
+
+.persona-card__face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1.5px solid color-mix(in srgb, var(--el) 46%, transparent);
+  box-shadow:
+    0 0 22px -6px color-mix(in srgb, var(--el) 40%, transparent),
+    0 18px 40px -18px rgba(0, 0, 0, 0.65),
+    inset 0 0 26px -14px color-mix(in srgb, var(--el) 60%, transparent);
+  transition: box-shadow 500ms ease;
+}
+
+.persona-card:hover .persona-card__face,
+.persona-card:focus-visible .persona-card__face {
+  box-shadow:
+    0 0 34px -4px color-mix(in srgb, var(--el) 60%, transparent),
+    0 22px 46px -16px rgba(0, 0, 0, 0.7),
+    inset 0 0 30px -12px color-mix(in srgb, var(--el) 75%, transparent);
+}
+
+.persona-card__back { transform: rotateY(180deg); }
+
+/* Carved inner frame */
+.persona-card__frame {
+  position: absolute;
+  inset: 9px;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--el) 34%, transparent);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.5),
+    inset 0 0 14px -6px color-mix(in srgb, var(--el) 45%, transparent);
+  pointer-events: none;
+}
+
+/* Creature art */
+.persona-card__art {
+  position: absolute;
+  inset: 12% 8% 26% 8%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* glow lives on the static wrapper so the animating <img> never
+     forces the filter to re-raster — transform stays compositor-only */
+  filter: drop-shadow(0 0 20px color-mix(in srgb, var(--el) 38%, transparent));
+}
+
+.persona-card__art img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  animation: persona-bob 5.5s ease-in-out infinite;
+}
+
+@keyframes persona-bob {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%      { transform: translateY(-7px) rotate(-0.6deg); }
+}
+
+/* Name plate */
+.persona-card__plate {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  padding: 10px 12px;
+  border-radius: 9px;
+  background: rgba(4, 22, 15, 0.72);
+  border: 1px solid color-mix(in srgb, var(--el) 30%, transparent);
+  backdrop-filter: blur(4px);
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.persona-card__title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--kq-em-ghost);
+  letter-spacing: 0.01em;
+}
+
+.persona-card__spirit {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--el) 82%, white);
+  opacity: 0.9;
+}
+
+/* Element chip, top corner */
+.persona-card__chip {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  padding: 4px 9px;
+  border-radius: 999px;
+  font-family: var(--font-ui);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #08130D;
+  background: color-mix(in srgb, var(--el) 88%, white);
+  box-shadow: 0 0 14px -2px color-mix(in srgb, var(--el) 70%, transparent);
+}
+
+/* Back face content */
+.persona-card__back-scroll {
+  position: absolute;
+  inset: 24px 20px 40px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.persona-card__back-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: color-mix(in srgb, var(--el) 70%, white);
+  margin-bottom: 10px;
+}
+
+.persona-card__back-desc {
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--kq-em-ghost);
+}
+
+.persona-card__divider {
+  height: 1px;
+  margin: 12px 0;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--el) 50%, transparent), transparent);
+}
+
+.persona-card__back-legacy-title {
+  font-family: var(--font-ui);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--el) 65%, white);
+  opacity: 0.75;
+  margin-bottom: 6px;
+}
+
+.persona-card__back-legacy {
+  font-family: var(--font-body);
+  font-size: 11.5px;
+  line-height: 1.6;
+  color: var(--kq-text-muted);
+}
+
+.persona-card__flip-hint {
+  position: absolute;
+  bottom: 12px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: var(--font-ui);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--kq-text-muted);
+  opacity: 0.6;
+}
+
+/* --- Wildcard chip (the "none of these?" flip) --------------------- */
+.wildcard-chip {
+  perspective: 900px;
+  cursor: pointer;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.wildcard-chip__inner {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 560ms cubic-bezier(.22, 1, .36, 1);
+}
+
+.wildcard-chip.is-flipped .wildcard-chip__inner { transform: rotateX(180deg); }
+
+.wildcard-chip__face {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 26px;
+  border-radius: 999px;
+  border: 1px solid var(--kq-opal-rim);
+  font-family: var(--font-ui);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--kq-em-pale);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  white-space: nowrap;
+}
+
+.wildcard-chip__back {
+  position: absolute;
+  inset: 0;
+  justify-content: center;
+  transform: rotateX(180deg);
+  color: var(--kq-obsidian);
+  background: linear-gradient(135deg, var(--kq-em-bright), var(--kq-mal-bright)) !important;
+  border-color: transparent;
+  text-decoration: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .persona-card__inner,
+  .wildcard-chip__inner { transition: none; }
+  .persona-card__art img { animation: none; }
+}
 

@@ -1,7 +1,11 @@
-import { Suspense, lazy, useEffect, useRef } from "react";
+import { Suspense, lazy, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useTransition } from "@/context/transition";
+import { useStaggerReveal } from "@/hooks/useStaggerReveal";
+import Magnetic from "@/components/motion/Magnetic";
+import RevealWords from "@/components/motion/RevealWords";
+import { BookOpen, Target, Brain, Award, Users, Clock } from "lucide-react";
 
 const HeroBrain = lazy(() => import("@/components/three/HeroBrain"));
 
@@ -61,36 +65,20 @@ const testimonials = [
   },
 ];
 
+// Credential pills
+const credentials = [
+  { icon: <Award size={16} />, text: "Rice University M.A." },
+  { icon: <Users size={16} />, text: "9th Nationally in LD Debate" },
+  { icon: <Brain size={16} />, text: "M.A. Rice University" },
+  { icon: <BookOpen size={16} />, text: "Published Scholar" },
+  { icon: <Clock size={16} />, text: "Decade of Experience" },
+  { icon: <Target size={16} />, text: "Measurable Results" },
+];
+
 export default function Home() {
   const { startResults, diving } = useTransition();
-  const revealRefs = useRef<HTMLDivElement[]>([]);
-
-  // Scroll reveal observer
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
-    );
-
-    revealRefs.current.forEach((el) => {
-      if (el) observer.observe(el);
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
-  const addRevealRef = (el: HTMLDivElement | null) => {
-    if (el && !revealRefs.current.includes(el)) {
-      revealRefs.current.push(el);
-    }
-  };
+  const addRevealRef = useStaggerReveal();
+  const [brainHover, setBrainHover] = useState(false);
 
   return (
     <div>
@@ -113,6 +101,8 @@ export default function Home() {
           className="absolute inset-0 cursor-pointer"
           style={{ zIndex: 1 }}
           onClick={startResults}
+          onMouseEnter={() => setBrainHover(true)}
+          onMouseLeave={() => setBrainHover(false)}
           title="Enter the Mind - see the results"
         >
           <div className="absolute inset-0 md:left-[35%] lg:left-[40%]">
@@ -120,6 +110,29 @@ export default function Home() {
               {!diving && <HeroBrain />}
             </Suspense>
           </div>
+
+          {/* Hover invitation — the brain is a door */}
+          <motion.div
+            className="pointer-events-none absolute hidden md:flex items-center gap-3 bottom-[16%] right-[7%]"
+            initial={false}
+            animate={{ opacity: brainHover ? 1 : 0, y: brainHover ? 0 : 8 }}
+            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <span className="brain-hint__ring relative w-2.5 h-2.5 rounded-full" style={{ background: "var(--kq-em-light)" }} />
+            <span
+              style={{
+                fontFamily: "var(--font-ui)",
+                fontSize: "11px",
+                fontWeight: 600,
+                letterSpacing: "0.22em",
+                textTransform: "uppercase",
+                color: "var(--kq-em-light)",
+                textShadow: "0 0 18px rgba(110,231,183,0.45)",
+              }}
+            >
+              Enter the Mind — See the Results
+            </span>
+          </motion.div>
         </div>
 
         {/* Hero text content - sits ABOVE the brain */}
@@ -142,8 +155,7 @@ export default function Home() {
               Houston &amp; Sugar Land, TX &middot; Online Nationwide
             </motion.p>
 
-            <motion.h1
-              variants={item}
+            <h1
               className="leading-[0.95] tracking-tight text-4xl sm:text-5xl lg:text-6xl mb-8"
               style={{
                 fontFamily: "var(--font-display)",
@@ -151,19 +163,33 @@ export default function Home() {
                 color: "var(--kq-em-ghost)",
               }}
             >
-              Your mind is{" "}
-              <em
-                style={{
+              <RevealWords
+                baseDelay={0.28}
+                emStyle={{
                   fontStyle: "italic",
                   color: "var(--kq-em-light)",
                   fontWeight: 400,
                 }}
-              >
-                more capable
-              </em>
+                words={[
+                  { t: "Your" },
+                  { t: "mind" },
+                  { t: "is" },
+                  { t: "more", em: true },
+                  { t: "capable", em: true },
+                ]}
+              />
               <br />
-              than any grade could encapsulate.
-            </motion.h1>
+              <RevealWords
+                baseDelay={0.62}
+                words={[
+                  { t: "than" },
+                  { t: "any" },
+                  { t: "grade" },
+                  { t: "could" },
+                  { t: "encapsulate." },
+                ]}
+              />
+            </h1>
 
             <motion.p
               variants={item}
@@ -179,12 +205,16 @@ export default function Home() {
               variants={item}
               className="flex flex-wrap items-center gap-4 mb-8 pointer-events-auto"
             >
-              <Link to="/contact" className="btn-primary">
-                Book a Free Discovery Call
-              </Link>
-              <button onClick={startResults} className="btn-gold">
-                Real Results
-              </button>
+              <Magnetic>
+                <Link to="/contact" className="btn-primary">
+                  Book a Free Discovery Call
+                </Link>
+              </Magnetic>
+              <Magnetic>
+                <button onClick={startResults} className="btn-gold">
+                  Real Results
+                </button>
+              </Magnetic>
             </motion.div>
 
 
@@ -193,40 +223,19 @@ export default function Home() {
 
       </section>
 
-      {/* ========== CREDENTIALS STRIP ========== */}
-      <div
-        style={{
-          background: "var(--kq-opal-deep)",
-          borderTop: "0.5px solid var(--kq-opal-rim)",
-          borderBottom: "0.5px solid var(--kq-opal-rim)",
-          padding: "52px 0",
-        }}
-      >
-        <div className="container">
-          <div ref={addRevealRef} className="reveal text-center" style={{ maxWidth: "760px", margin: "0 auto" }}>
-            <div className="flex items-center justify-center gap-4 mb-5">
-              <span style={{ width: "36px", height: "1px", background: "var(--kq-opal-rim)" }} />
-              <p className="eyebrow" style={{ margin: 0 }}>Credentials</p>
-              <span style={{ width: "36px", height: "1px", background: "var(--kq-opal-rim)" }} />
-            </div>
-            <p
-              style={{
-                fontFamily: "var(--font-display)",
-                fontStyle: "italic",
-                fontWeight: 400,
-                fontSize: "clamp(1.15rem, 2.2vw, 1.5rem)",
-                lineHeight: 1.55,
-                color: "var(--kq-em-pale)",
-              }}
+      {/* ========== CREDENTIAL BAR ========== */}
+      <div className="credential-bar" style={{ overflow: "hidden" }}>
+        <div className="credential-marquee">
+          {[...credentials, ...credentials].map((cred, i) => (
+            <div
+              key={i}
+              className="credential-pill"
+              aria-hidden={i >= credentials.length}
             >
-              A Rice University M.A., a nationally ranked debater, and a decade
-              of measurable results —{" "}
-              <em style={{ color: "var(--kq-em-light)" }}>
-                one mind now devoted entirely to yours
-              </em>
-              .
-            </p>
-          </div>
+              {cred.icon}
+              <span>{cred.text}</span>
+            </div>
+          ))}
         </div>
       </div>
 
@@ -587,9 +596,11 @@ export default function Home() {
               obligation. We'll figure out what your student needs and whether
               Kuriausity is the right fit.
             </p>
-            <Link to="/contact" className="btn-gold text-base px-8 py-4">
-              Book a Free Discovery Call
-            </Link>
+            <Magnetic>
+              <Link to="/contact" className="btn-gold text-base px-8 py-4">
+                Book a Free Discovery Call
+              </Link>
+            </Magnetic>
           </div>
         </div>
       </section>

@@ -45,14 +45,106 @@ It prints the page title and any `console.error`/uncaught-exception text — che
 that output is empty before considering a change verified. Screenshot PNGs are
 gitignored; read them with the Read tool to actually look at the result.
 
+## Elite motion layer (merged 2026-07-18 from a Kimi3 revamp)
+
+Michael had Kimi3 (a separate AI design tool) build an animation/motion pass in
+parallel to this session's work, in `Kimi_Agent_Animated Elite Website Revamp.zip`.
+That zip was a full site snapshot from *before* several decisions already made in
+this session (icon-based filter bar, Barton Springs backdrop, Sparkles badges,
+`keck-hall.jpg` on Consultants), so it was merged surgically — new components and
+motion utilities adopted wholesale, but page content/images/decisions already
+settled in this session were preserved over Kimi's older versions of the same files.
+
+**Adopted:**
+- `src/components/motion/` — `CountUp` (animated stat counters), `Magnetic`
+  (cursor-lean hover on primary CTAs), `PageShell` (route enter/exit blur+slide,
+  wired into `App.tsx` via `AnimatePresence`), `RevealWords` (word-by-word masked
+  headline reveal, used on the Home hero), `SereneField` (aurora-blob + drifting
+  motes canvas, used on Results).
+- `src/hooks/useStaggerReveal.ts` — replaces the per-page IntersectionObserver
+  boilerplate every page used to hand-roll; batches reveals with a per-item stagger
+  (`--reveal-delay`) instead of firing all at once.
+- `src/hooks/useTiltCards.ts` — one delegated pointer listener gives every card
+  surface (`.course-card`, `.consultant-card`, etc.) a subtle 3D tilt + a
+  cursor-tracked light sheen (CSS `::after` radial-gradient driven by `--mx`/`--my`).
+  Hover-only, never a resting glow — see the anti-pattern note below.
+- Lenis smooth/inertial scrolling, wired into `App.tsx`.
+- The brain-dive transition (`BrainTransition.tsx` + new `PixelDissolve.tsx`) is now
+  a three-act cinematic: dive → white bloom → pixels crumble away (center-out) to
+  reveal the Results page underneath, instead of a flat cut. Timing constants
+  (`DIVE_DURATION` in `BrainScene.tsx`, `BLOOM_NAVIGATE_MS`/`BLOOM_RELEASE_MS` in
+  `BrainTransition.tsx`, the delay/fall ranges in `PixelDissolve.tsx`) were all
+  compressed from Kimi's originals per Michael's explicit "under a second, one
+  continuous motion" note — verify on real hardware if it ever feels sluggish;
+  headless/software-rendered WebGL (no GPU) inflates these numbers heavily in any
+  automated test, so don't trust absolute timings measured that way.
+- Results page: the `green-valley.jpg` backdrop (reused — Kimi's version referenced
+  a `serene-valley.jpg` that didn't actually exist in the zip) now fades out via
+  scroll progress (`useScroll`/`useTransform`) across the header + stats band
+  instead of a hard cutoff, so it "resounds" longer per Michael's feedback. A new
+  "Video Testimonials — Coming Soon" section (honest placeholder tiles, no
+  fabricated content) sits before the final CTA, ready for real footage.
+- Nav: scroll-progress bar under the gradient bar, a shared-layout-animated active
+  link underline, magnetic CTA, and the mobile menu now renders outside `<nav>`
+  (a `backdrop-filter` on `<nav>` would otherwise collapse the fixed overlay).
+
+**Deliberately NOT adopted / reverted back to this session's version:**
+- The homepage credential/accolades bar: Michael's own follow-up note on the Kimi
+  chat said "the banner is back, keep it in this exact formatting" — so Kimi's
+  icon-pill auto-scrolling marquee (`credentials` array + `.credential-bar`/
+  `.credential-pill`/`.credential-marquee` in `index.css`) is what's live, not a
+  quieter static alternative that was tried earlier in the same session and then
+  superseded by this instruction.
+- **`PersonaCards`** (`src/components/motion/PersonaCards.tsx` + the
+  `wood-carve`/`.persona-card*`/`.wildcard-chip*` CSS + `creature-*.png` in
+  `public/images/`) — a flip-card "creature" metaphor for the four "Who This Is
+  For" student personas (originally Pokémon-flavored; the "Pikachu energy" /
+  "Charmander spirit" / etc. lines are already renamed to plain elemental
+  descriptions per Michael's note, but the deeper redesign he asked for — a
+  Hearthstone-style wood-carved card BORDER with the creature art itself colored
+  by element, plus an eyes-glow-on-hover-before-flip effect, all without
+  re-rendering the art — has NOT been built). **The component exists in the repo
+  but is not imported/rendered anywhere.** Michael is still testing this concept;
+  swap it in for the plain 4-card grid on Home's "Who This Is For" section only
+  when he confirms it's ready.
+- Category icons + Sparkles badges on Services/Advisory, the icon-less
+  wheel-scrollable filter bar on Services, and the Barton-Springs-successor
+  backdrop images (`green-valley.jpg`, `forest-lake.jpg`, `artifact-prism.jpg`,
+  `aurora-network.jpg`) — all this session's decisions, kept as-is over Kimi's
+  older versions of the same sections.
+
+**Ideas surfaced but not built** (from a vault research pass on
+`Kuriausity/web-design/research-ecosystem/`, kept here so they aren't lost):
+- Section-to-section transitions on the SAME page could go further: a normalized
+  0–1 scroll-progress value per section driving clip-path/scale (not just
+  opacity), or an "exploded/recomposing layer" handoff at a section boundary
+  (see `Curriculum/Motion/Scroll-Systems.md`, `Labs/07-Exploded-Component-Lab.md`).
+  Only the Results-page serene-valley fade got this treatment so far, since it
+  was the only spot with a clear, low-risk justification (image already there,
+  legibility protected by an opaque stat card).
+  Deliberately did NOT add scroll-pinning/scroll-jacking anywhere — the vault's
+  own guidance ranks that as a last resort, not a default.
+- Editorial rhythm asymmetry (vary section pacing instead of uniform grids
+  everywhere) — noted as a future direction, not applied broadly this pass.
+- Anti-pattern checklist worth re-auditing against periodically (from
+  `Workflows/Recovery-When-the-Agent-Degrades-the-Design.md` and this project's
+  own `Website Design System (2026-07).md`): every section becoming a card grid,
+  gradients/glow multiplying without purpose, and — the one already fixed once on
+  this exact site — a thin rim border + permanent neon box-shadow duplicated
+  across every card type. The current card-hover sheen (`useTiltCards` +
+  `::after` in `index.css`) is opacity-0 at rest and only appears on hover,
+  which avoids this tell; check any future card treatment against the same rule.
+
 ## Structure
 
 - `src/pages/` — one file per route (Home, About, Services, Courses, Advisory,
   Results, Consultants, Blog, Contact)
 - `src/components/layout/` — Nav, Footer
+- `src/components/motion/` — Framer Motion utilities (see above)
 - `src/components/three/` — the react-three-fiber brain hero (`HeroBrain.tsx`,
-  `BrainScene.tsx`, `BrainTransition.tsx`)
+  `BrainScene.tsx`, `BrainTransition.tsx`, `PixelDissolve.tsx`)
 - `src/components/ui/` — shadcn/ui primitives (generated, edit sparingly)
+- `src/hooks/useStaggerReveal.ts`, `useTiltCards.ts` — shared motion hooks
 - `src/lib/brain.ts` — brain animation data/logic
 - `src/lib/submitForm.ts` — shared submission path for every form on the site
   (general inquiry, consultant application, client review on Contact.tsx). Each
@@ -79,8 +171,8 @@ gitignored; read them with the Read tool to actually look at the result.
 ## Notes
 
 - Port 3000 is hardcoded in `vite.config.ts`.
-- The single JS bundle is ~1.4MB minified (build warning) — not a bug, just an
+- The single JS bundle is ~1.5MB minified (build warning) — not a bug, just an
   opportunity for future code-splitting (route-based `React.lazy`) if load time
   becomes a concern.
-- This repo currently has no git remote — it's local-only. Consider pushing to a
-  private GitHub repo for backup once Michael confirms where he wants it hosted.
+- Remote: `github.com/Mkurian99/kuriausity-website` (private), auto-deploys to
+  kuriausity.com via Netlify on every push to `master`.

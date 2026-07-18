@@ -1,5 +1,13 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { Link } from "react-router-dom";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { Play } from "lucide-react";
+import { useStaggerReveal } from "@/hooks/useStaggerReveal";
+import CountUp from "@/components/motion/CountUp";
+import Magnetic from "@/components/motion/Magnetic";
+import SereneField from "@/components/motion/SereneField";
+
+const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 /* ═══════════════ LIGHT FIELD PALETTE (EWO) ═══════════════ */
 const c = {
@@ -91,110 +99,116 @@ const outcomes = [
 ];
 
 export default function Results() {
-  const revealRefs = useRef<HTMLDivElement[]>([]);
+  const addRevealRef = useStaggerReveal();
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
-    );
-
-    revealRefs.current.forEach((el) => {
-      if (el) observer.observe(el);
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
-  const addRevealRef = (el: HTMLDivElement | null) => {
-    if (el && !revealRefs.current.includes(el)) {
-      revealRefs.current.push(el);
-    }
-  };
+  // The serene valley resounds across the header AND stats band — its own
+  // scroll progress, not a hard cutoff, so it fades out gradually rather
+  // than disappearing the instant the header ends.
+  const sereneWrapRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress: sereneProgress } = useScroll({
+    target: sereneWrapRef,
+    offset: ["start start", "end start"],
+  });
+  const sereneImageOpacity = useTransform(sereneProgress, [0, 0.7, 1], [0.52, 0.22, 0]);
+  const sereneMoteOpacity = useTransform(sereneProgress, [0, 0.8, 1], [1, 0.4, 0]);
 
   return (
     <div style={{ paddingTop: "72px", background: c.bg }}>
-      {/* ═══════════════ HEADER ═══════════════ */}
-      <section className="section text-center" style={{ background: c.bg }}>
-        <div className="container">
-          <p
-            className="eyebrow mb-4"
-            style={{
-              fontFamily: "var(--font-ui)",
-              fontWeight: 600,
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              color: c.emMid,
-              fontSize: "11px",
-            }}
-          >
-            Results
-          </p>
-          <h1
-            style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 300,
-              color: c.text,
-              fontSize: "clamp(2.2rem, 5vw, 3.625rem)",
-            }}
-          >
-            The numbers and the{" "}
-            <em style={{ color: c.emerald }}>stories</em>{" "}
-            behind them.
-          </h1>
-          <p
-            className="max-w-2xl mx-auto mt-4"
-            style={{ color: c.muted, fontSize: "15px", lineHeight: 1.7 }}
-          >
-            Every result below is a real student, a real transformation, and a real
-            family who trusted Kuriausity with their student's potential.
-          </p>
-        </div>
-      </section>
+      <div ref={sereneWrapRef} className="relative">
+        {/* Serene valley — the world the pixels fall away to reveal. Clear
+            and present at the top, fading smoothly on scroll rather than a
+            hard cut, so its spirit resounds through the stats band too. */}
+        <motion.div
+          className="absolute inset-0 bg-cover bg-center pointer-events-none"
+          style={{ backgroundImage: "url(/images/green-valley.jpg)", backgroundPosition: "center 30%", opacity: sereneImageOpacity }}
+        />
+        <motion.div className="absolute inset-0 pointer-events-none" style={{ opacity: sereneMoteOpacity }}>
+          <SereneField />
+        </motion.div>
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{ background: `linear-gradient(to bottom, ${c.bg}55 0%, transparent 30%, transparent 70%, ${c.bg} 100%)` }}
+        />
 
-      {/* ═══════════════ STATS BAR ═══════════════ */}
-      <section className="py-12 relative overflow-hidden" style={{ background: c.emFaint }}>
-        {/* Malachite texture — faint */}
-        <div className="absolute inset-0 bg-cover bg-center opacity-[0.06]" style={{ backgroundImage: "url(/images/malachite.jpg)" }} />
-        <div className="absolute inset-0" style={{ background: `linear-gradient(to right, ${c.emFaint} 0%, transparent 25%, transparent 75%, ${c.emFaint} 100%)` }} />
-        <div className="absolute inset-0" style={{ background: `linear-gradient(to bottom, ${c.emFaint} 0%, transparent 15%, transparent 85%, ${c.emFaint} 100%)` }} />
-
-        <div className="container relative z-10">
-          <div
-            ref={addRevealRef}
-            className="reveal grid grid-cols-2 md:grid-cols-4"
-            style={{ background: c.card, borderRadius: "14px", boxShadow: "0 1px 2px rgba(5,150,105,0.05), 0 20px 40px -16px rgba(5,150,105,0.16)" }}
-          >
-            {stats.map((stat, i) => (
-              <div
-                key={i}
-                className="text-center py-10 px-4"
-                style={{ borderLeft: i > 0 ? `1px solid ${c.borderLight}` : "none" }}
-              >
-                <p
-                  className="font-bold mb-2"
-                  style={{ fontFamily: "var(--font-mono)", color: c.cobalt, fontSize: "clamp(1.75rem, 4vw, 2.5rem)" }}
-                >
-                  {stat.number}
-                </p>
-                <p
-                  className="text-xs uppercase tracking-wider"
-                  style={{ fontFamily: "var(--font-ui)", color: c.muted }}
-                >
-                  {stat.label}
-                </p>
-              </div>
-            ))}
+        {/* ═══════════════ HEADER ═══════════════ */}
+        <section className="section text-center relative z-10">
+          <div className="container">
+            <motion.p
+              className="eyebrow mb-4"
+              style={{
+                fontFamily: "var(--font-ui)",
+                fontWeight: 600,
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                color: c.emMid,
+                fontSize: "11px",
+              }}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: EASE, delay: 0.1 }}
+            >
+              Results
+            </motion.p>
+            <motion.h1
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 300,
+                color: c.text,
+                fontSize: "clamp(2.2rem, 5vw, 3.625rem)",
+              }}
+              initial={{ opacity: 0, y: 22, filter: "blur(6px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ duration: 0.85, ease: EASE, delay: 0.2 }}
+            >
+              The numbers and the{" "}
+              <em style={{ color: c.emerald }}>stories</em>{" "}
+              behind them.
+            </motion.h1>
+            <motion.p
+              className="max-w-2xl mx-auto mt-4"
+              style={{ color: c.muted, fontSize: "15px", lineHeight: 1.7 }}
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: EASE, delay: 0.34 }}
+            >
+              Every result below is a real student, a real transformation, and a real
+              family who trusted Kuriausity with their student's potential.
+            </motion.p>
           </div>
-        </div>
-      </section>
+        </section>
+
+        {/* ═══════════════ STATS BAR ═══════════════ */}
+        <section className="py-12 relative z-10">
+          <div className="container relative z-10">
+            <div
+              ref={addRevealRef}
+              className="reveal grid grid-cols-2 md:grid-cols-4"
+              style={{ background: c.card, borderRadius: "14px", boxShadow: "0 1px 2px rgba(5,150,105,0.05), 0 20px 40px -16px rgba(5,150,105,0.16)" }}
+            >
+              {stats.map((stat, i) => (
+                <div
+                  key={i}
+                  className="text-center py-10 px-4"
+                  style={{ borderLeft: i > 0 ? `1px solid ${c.borderLight}` : "none" }}
+                >
+                  <p
+                    className="font-bold mb-2"
+                    style={{ fontFamily: "var(--font-mono)", color: c.cobalt, fontSize: "clamp(1.75rem, 4vw, 2.5rem)" }}
+                  >
+                    <CountUp value={stat.number} />
+                  </p>
+                  <p
+                    className="text-xs uppercase tracking-wider"
+                    style={{ fontFamily: "var(--font-ui)", color: c.muted }}
+                  >
+                    {stat.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </div>
 
       {/* ═══════════════ OUTCOME HIGHLIGHTS ═══════════════ */}
       <section className="section relative overflow-hidden" style={{ background: c.bg }}>
@@ -233,7 +247,7 @@ export default function Results() {
                 style={{ background: c.card, borderTop: `3px solid ${out.color}` }}
               >
                 <p className="text-4xl font-bold mb-1" style={{ fontFamily: "var(--font-mono)", color: out.color }}>
-                  {out.metric}
+                  <CountUp value={out.metric} />
                 </p>
                 <p className="text-xs uppercase tracking-wider mb-2" style={{ fontFamily: "var(--font-ui)", color: c.muted }}>
                   {out.unit}
@@ -310,6 +324,66 @@ export default function Results() {
         </div>
       </section>
 
+      {/* ═══════════════ VIDEO TESTIMONIALS — the next clearing in this serene space ═══════════════ */}
+      <section className="section relative overflow-hidden" style={{ background: c.bg }}>
+        <SereneField motes={22} />
+        <div className="container relative z-10">
+          <div ref={addRevealRef} className="reveal text-center mb-12">
+            <p
+              className="mb-4"
+              style={{
+                fontFamily: "var(--font-ui)",
+                fontWeight: 600,
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                color: c.emMid,
+                fontSize: "11px",
+              }}
+            >
+              Coming Soon
+            </p>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 400, color: c.textSoft }}>
+              Their stories, <em style={{ color: c.emerald }}>on film</em>.
+            </h2>
+            <p className="max-w-2xl mx-auto mt-4" style={{ color: c.muted, fontSize: "15px", lineHeight: 1.7 }}>
+              Video testimonials from Kuriausity families are being filmed now.
+              This clearing is ready for them.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {["Family Story", "Student Story", "Debater Story"].map((label, i) => (
+              <div
+                key={label}
+                ref={addRevealRef}
+                className="reveal video-tile aspect-video flex items-center justify-center"
+                style={{
+                  background: `linear-gradient(${135 + i * 30}deg, ${c.emGhost} 0%, ${c.emPale} 45%, ${i === 1 ? c.cobaltPale : c.malPale} 100%)`,
+                  boxShadow: "0 1px 2px rgba(5,150,105,0.05), 0 16px 36px -18px rgba(5,150,105,0.25)",
+                }}
+              >
+                {/* Play button silhouette */}
+                <div
+                  className="video-tile__play flex items-center justify-center w-14 h-14 rounded-full"
+                  style={{ background: "rgba(255,255,255,0.92)", boxShadow: "0 4px 14px rgba(5,150,105,0.2)" }}
+                >
+                  <Play size={20} style={{ color: c.emerald, marginLeft: 2 }} fill={c.emerald} />
+                </div>
+                {/* Status chip */}
+                <div
+                  className="absolute bottom-3 left-3 px-3 py-1 rounded-full"
+                  style={{ background: "rgba(255,255,255,0.85)", backdropFilter: "blur(6px)" }}
+                >
+                  <span style={{ fontFamily: "var(--font-ui)", fontSize: "10px", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: c.emMid }}>
+                    {label} — In Production
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ═══════════════ CTA ═══════════════ */}
       <section className="section text-center relative overflow-hidden" style={{ background: c.emDeep }}>
         {/* Malachite — rich on dark emerald */}
@@ -329,19 +403,21 @@ export default function Results() {
               Every result starts with a conversation. Book your free discovery call
               and let's figure out what your student is capable of.
             </p>
-            <Link
-              to="/contact"
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-md font-semibold text-sm transition-all duration-200 hover:-translate-y-0.5"
-              style={{
-                fontFamily: "var(--font-ui)",
-                letterSpacing: "0.06em",
-                background: c.card,
-                color: c.emDeep,
-                boxShadow: "0 4px 16px rgba(0,0,0,0.2)",
-              }}
-            >
-              Book a Free Discovery Call
-            </Link>
+            <Magnetic>
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-md font-semibold text-sm transition-all duration-200 hover:-translate-y-0.5"
+                style={{
+                  fontFamily: "var(--font-ui)",
+                  letterSpacing: "0.06em",
+                  background: c.card,
+                  color: c.emDeep,
+                  boxShadow: "0 4px 16px rgba(0,0,0,0.2)",
+                }}
+              >
+                Book a Free Discovery Call
+              </Link>
+            </Magnetic>
           </div>
         </div>
       </section>

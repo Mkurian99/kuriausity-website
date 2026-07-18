@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import { useStaggerReveal } from "@/hooks/useStaggerReveal";
+import Magnetic from "@/components/motion/Magnetic";
 import { Check, Clock, Users, ArrowRight } from "lucide-react";
 
 /* ═══════════════ CATEGORY TABS ═══════════════ */
@@ -164,8 +166,8 @@ const courses = [
 
 export default function Services() {
   const [activeFilter, setActiveFilter] = useState("All");
-  const revealRefs = useRef<HTMLDivElement[]>([]);
   const filterBarRef = useRef<HTMLDivElement>(null);
+  const addRevealRef = useStaggerReveal([activeFilter]);
 
   useEffect(() => {
     const el = filterBarRef.current;
@@ -184,30 +186,6 @@ export default function Services() {
     activeFilter === "All"
       ? courses
       : courses.filter((c) => c.category === activeFilter);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
-    );
-    revealRefs.current.forEach((el) => {
-      if (el) observer.observe(el);
-    });
-    return () => observer.disconnect();
-  }, [activeFilter]);
-
-  const addRevealRef = (el: HTMLDivElement | null) => {
-    if (el && !revealRefs.current.includes(el)) {
-      revealRefs.current.push(el);
-    }
-  };
 
   return (
     <div style={{ paddingTop: "72px" }}>
@@ -605,9 +583,11 @@ export default function Services() {
 
           {/* CTA */}
           <div ref={addRevealRef} className="reveal text-center mt-10">
-            <Link to="/advisory" className="btn-primary">
-              Inquire About a Pre-Mortem Session <ArrowRight size={14} />
-            </Link>
+            <Magnetic>
+              <Link to="/advisory" className="btn-primary">
+                Inquire About a Pre-Mortem Session <ArrowRight size={14} />
+              </Link>
+            </Magnetic>
           </div>
         </div>
       </section>
@@ -630,9 +610,11 @@ export default function Services() {
             <p className="max-w-xl mx-auto mb-8" style={{ color: "var(--kq-em-pale)", fontSize: "16px", opacity: 0.8 }}>
               The discovery call is where we figure out what your student actually needs. No obligation. Just clarity.
             </p>
-            <Link to="/contact" className="btn-gold">
-              Book a Free Discovery Call
-            </Link>
+            <Magnetic>
+              <Link to="/contact" className="btn-gold">
+                Book a Free Discovery Call
+              </Link>
+            </Magnetic>
           </div>
         </div>
       </section>

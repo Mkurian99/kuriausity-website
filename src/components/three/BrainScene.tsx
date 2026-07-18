@@ -3,7 +3,7 @@ import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { buildBrainGroup } from "@/lib/brain";
 
-const DIVE_DURATION = 1.7;
+const DIVE_DURATION = 0.42;
 const easeInOutCubic = (x: number) =>
   x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
 
