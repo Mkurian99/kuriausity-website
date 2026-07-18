@@ -2,7 +2,6 @@ import { Suspense, lazy, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useTransition } from "@/context/transition";
-import { BookOpen, Target, Brain, Award, Users, Clock } from "lucide-react";
 
 const HeroBrain = lazy(() => import("@/components/three/HeroBrain"));
 
@@ -64,12 +63,12 @@ const testimonials = [
 
 // Credential pills
 const credentials = [
-  { icon: <Award size={16} />, text: "Rice University M.A." },
-  { icon: <Users size={16} />, text: "9th Nationally in LD Debate" },
-  { icon: <Brain size={16} />, text: "M.A. Rice University" },
-  { icon: <BookOpen size={16} />, text: "Published Scholar" },
-  { icon: <Clock size={16} />, text: "Decade of Experience" },
-  { icon: <Target size={16} />, text: "Measurable Results" },
+  { text: "Rice University M.A." },
+  { text: "9th Nationally in LD Debate" },
+  { text: "M.A. Rice University" },
+  { text: "Published Scholar" },
+  { text: "Decade of Experience" },
+  { text: "Measurable Results" },
 ];
 
 export default function Home() {
@@ -208,8 +207,8 @@ export default function Home() {
       <div className="credential-bar">
         {/* Barton Springs — faded backdrop behind the accolades ticker */}
         <div
-          className="absolute inset-0 bg-cover bg-center opacity-[0.16]"
-          style={{ backgroundImage: "url(/images/barton-springs-strip.png)" }}
+          className="absolute inset-0 bg-cover bg-center opacity-[0.24]"
+          style={{ backgroundImage: "url(/images/barton-springs-aerial.jpg)" }}
         />
         <div
           className="absolute inset-0"
@@ -227,7 +226,6 @@ export default function Home() {
             >
               {credentials.map((cred, i) => (
                 <div key={i} className="credential-pill">
-                  {cred.icon}
                   <span>{cred.text}</span>
                 </div>
               ))}

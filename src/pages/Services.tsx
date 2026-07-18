@@ -364,8 +364,8 @@ export default function Services() {
 
       {/* ═══════════════════ 90-DAY COURSES ═══════════════════ */}
       <section className="section relative overflow-hidden" style={{ background: "var(--kq-opal-mid)" }}>
-        {/* Rice Sally Port */}
-        <div className="absolute inset-0 bg-cover bg-center opacity-[0.08]" style={{ backgroundImage: "url(/images/rice-sally-port.jpg)" }} />
+        {/* Barton Springs aerial — a bit more present than the usual texture backdrop */}
+        <div className="absolute inset-0 bg-cover bg-center opacity-[0.24]" style={{ backgroundImage: "url(/images/barton-springs-aerial.jpg)" }} />
         <div className="absolute inset-0" style={{ background: "linear-gradient(to right, var(--kq-opal-mid) 0%, transparent 25%, transparent 75%, var(--kq-opal-mid) 100%)" }} />
         <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, var(--kq-opal-mid) 0%, transparent 15%, transparent 85%, var(--kq-opal-mid) 100%)" }} />
 

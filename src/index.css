@@ -414,6 +414,4 @@
   text-transform: uppercase;
 }
 
-.credential-pill svg { flex-shrink: 0; width: 16px; height: 16px; color: var(--kq-em-light); }
-
 .credential-pill + .credential-pill { border-left: 1px solid rgba(255,255,255,0.08); }
