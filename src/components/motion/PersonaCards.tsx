@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, RotateCw } from "lucide-react";
-import CreatureSprite, { CardFrame } from "@/components/motion/CreatureSprite";
+import { CardFrame } from "@/components/motion/CreatureSprite";
 
 interface Persona {
   id: string;
@@ -9,6 +9,7 @@ interface Persona {
   spirit: string; // the creature-spirit subtitle
   element: string; // elemental glow color
   elementName: string;
+  img: string; // creature figure artwork
   desc: string; // primary persona description
   legacy: string; // original persona text — preserved, supporting
   legacyTitle: string;
@@ -21,6 +22,7 @@ const PERSONAS: Persona[] = [
     spirit: "Electric current",
     element: "#FBBF24",
     elementName: "Electric",
+    img: "/images/personas/electric.png",
     desc: "The energetic kid with ADHD-related learning differences — boundless passion and energy that just needs a system built for how their mind actually runs.",
     legacyTitle: "The Neurodiverse Thinker",
     legacy:
@@ -32,6 +34,7 @@ const PERSONAS: Persona[] = [
     spirit: "Living flame",
     element: "#FB7185",
     elementName: "Fire",
+    img: "/images/personas/fire.png",
     desc: "The bright rapscallion — adventurous, allergic to systems and discipline, and too clever for the structures built to contain them.",
     legacyTitle: "The Capable Underperformer",
     legacy:
@@ -43,6 +46,7 @@ const PERSONAS: Persona[] = [
     spirit: "Rooted growth",
     element: "#4ADE80",
     elementName: "Leaf",
+    img: "/images/personas/leaf.png",
     desc: "The shy kid with special interests — deep talent and intrigue waiting to come out of its shell and be offered to the world.",
     legacyTitle: "The High Achiever Pushing Further",
     legacy:
@@ -54,6 +58,7 @@ const PERSONAS: Persona[] = [
     spirit: "Steady current",
     element: "#38BDF8",
     elementName: "Water",
+    img: "/images/personas/water.png",
     desc: "The go-with-the-flow prodigy — internally motivated and genuinely talented, but struggles to stay disciplined and orderly.",
     legacyTitle: "The College-Bound Strategist",
     legacy:
@@ -86,13 +91,12 @@ function PersonaCard({ p }: { p: Persona }) {
         <div className="persona-card__face persona-card__front">
           <CardFrame id={p.id} el={p.element} />
           <div className="persona-card__art">
-            <CreatureSprite id={p.id} el={p.element} />
+            <img src={p.img} alt={`${p.title} — ${p.spirit}`} draggable={false} />
           </div>
           <div className="persona-card__plate">
             <span className="persona-card__title">{p.title}</span>
             <span className="persona-card__spirit">{p.spirit}</span>
           </div>
-          <span className="persona-card__chip">{p.elementName}</span>
         </div>
 
         {/* ══ Back — the persona ══ */}

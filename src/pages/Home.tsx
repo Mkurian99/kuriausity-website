@@ -332,10 +332,10 @@ export default function Home() {
 
       {/* ========== WHO IT'S FOR ========== */}
       <section className="section relative overflow-hidden" style={{ background: "var(--kq-opal-mid)" }}>
-        {/* Iridescent opal texture */}
-        <div className="absolute inset-0 bg-cover bg-center opacity-[0.10]" style={{ backgroundImage: "url(/images/opal-holo.jpg)" }} />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(to right, var(--kq-opal-mid) 0%, transparent 25%, transparent 75%, var(--kq-opal-mid) 100%)" }} />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, var(--kq-opal-mid) 0%, transparent 15%, transparent 85%, var(--kq-opal-mid) 100%)" }} />
+        {/* Iridescent opal texture — brightened so the multicolored opal shines through */}
+        <div className="absolute inset-0 bg-cover bg-center opacity-[0.32]" style={{ backgroundImage: "url(/images/opal-holo.jpg)" }} />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to right, var(--kq-opal-mid) 0%, transparent 20%, transparent 80%, var(--kq-opal-mid) 100%)" }} />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, var(--kq-opal-mid) 0%, transparent 12%, transparent 88%, var(--kq-opal-mid) 100%)" }} />
 
         <div className="container relative z-10">
           <div ref={addRevealRef} className="reveal text-center mb-16">

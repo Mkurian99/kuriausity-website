@@ -694,11 +694,18 @@ html { scrollbar-width: thin; scrollbar-color: var(--kq-opal-rim) var(--kq-obsid
   filter: drop-shadow(0 8px 16px color-mix(in srgb, var(--el) 30%, transparent));
 }
 
-.persona-card__art svg {
+.persona-card__art svg,
+.persona-card__art img {
   width: 100%;
   height: 100%;
   overflow: visible;
   animation: persona-bob 5.5s ease-in-out infinite;
+}
+
+.persona-card__art img {
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 /* Eyes: a low resting glow that ramps to full on hover/focus — the
@@ -881,7 +888,8 @@ html { scrollbar-width: thin; scrollbar-color: var(--kq-opal-rim) var(--kq-obsid
 @media (prefers-reduced-motion: reduce) {
   .persona-card__inner,
   .wildcard-chip__inner { transition: none; }
-  .persona-card__art svg { animation: none; }
+  .persona-card__art svg,
+  .persona-card__art img { animation: none; }
   .persona-card .creature-eyes { opacity: 0.8; }
 }
 
