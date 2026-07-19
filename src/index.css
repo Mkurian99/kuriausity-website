@@ -591,12 +591,13 @@ html { scrollbar-width: thin; scrollbar-color: var(--kq-opal-rim) var(--kq-obsid
 
 
 /* ═══════════════════════════════════════════════════════════════════
-   PERSONA CARDS — emerald wood carvings with elemental glow
-   (Not currently wired into any page — kept ready for future testing
-   of the creature-metaphor "Who This Is For" concept. See CLAUDE.md.)
+   PERSONA CARDS — original SVG elemental "spirit" creatures in ornate
+   collectible frames, wired into Home's "Who This Is For". Carved-obsidian
+   gem bodies with a luminous opal core; the eyes glow on hover a beat
+   before the card flips. Creatures live in CreatureSprite.tsx.
    ═══════════════════════════════════════════════════════════════════ */
 
-/* Carved emerald wood — layered grain, chisel marks, deep polish */
+/* Carved emerald wood — still used by the wildcard chip's faces */
 .wood-carve {
   background:
     radial-gradient(130% 90% at 50% -10%, rgba(110, 231, 183, 0.14), transparent 55%),
@@ -624,9 +625,14 @@ html { scrollbar-width: thin; scrollbar-color: var(--kq-opal-rim) var(--kq-obsid
   transition: transform 780ms cubic-bezier(.22, 1, .36, 1);
 }
 
-/* Hover flips on precise pointers; click/tap toggles everywhere */
+/* Hover flips on precise pointers; click/tap toggles everywhere.
+   The hover flip waits a beat (transition-delay) so the eyes light up
+   FIRST, then the card turns. Un-hover/tap flip back stays immediate. */
 @media (hover: hover) and (pointer: fine) {
-  .persona-card:hover .persona-card__inner { transform: rotateY(180deg); }
+  .persona-card:hover .persona-card__inner {
+    transform: rotateY(180deg);
+    transition-delay: 220ms;
+  }
 }
 .persona-card.is-flipped .persona-card__inner { transform: rotateY(180deg); }
 
@@ -638,6 +644,10 @@ html { scrollbar-width: thin; scrollbar-color: var(--kq-opal-rim) var(--kq-obsid
   border-radius: 18px;
   overflow: hidden;
   border: 1.5px solid color-mix(in srgb, var(--el) 46%, transparent);
+  background:
+    radial-gradient(130% 90% at 50% -10%, color-mix(in srgb, var(--el) 12%, transparent), transparent 55%),
+    radial-gradient(120% 80% at 50% 118%, rgba(3, 10, 16, 0.7), transparent 60%),
+    linear-gradient(158deg, #0E2030 0%, #0A1826 45%, #0B1C2C 62%, #081420 100%);
   box-shadow:
     0 0 22px -6px color-mix(in srgb, var(--el) 40%, transparent),
     0 18px 40px -18px rgba(0, 0, 0, 0.65),
@@ -655,36 +665,45 @@ html { scrollbar-width: thin; scrollbar-color: var(--kq-opal-rim) var(--kq-obsid
 
 .persona-card__back { transform: rotateY(180deg); }
 
-/* Carved inner frame */
-.persona-card__frame {
+/* Ornate collectible frame overlay (SVG) — sits above the art, below plate */
+.persona-card__frame-svg {
   position: absolute;
-  inset: 9px;
-  border-radius: 12px;
-  border: 1px solid color-mix(in srgb, var(--el) 34%, transparent);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.07),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.5),
-    inset 0 0 14px -6px color-mix(in srgb, var(--el) 45%, transparent);
+  inset: 0;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
+  z-index: 3;
 }
 
 /* Creature art */
 .persona-card__art {
   position: absolute;
-  inset: 12% 8% 26% 8%;
+  inset: 5% 7% 23% 7%;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
-  /* glow lives on the static wrapper so the animating <img> never
+  /* glow lives on the static wrapper so the animating <svg> never
      forces the filter to re-raster — transform stays compositor-only */
-  filter: drop-shadow(0 0 20px color-mix(in srgb, var(--el) 38%, transparent));
+  filter: drop-shadow(0 8px 16px color-mix(in srgb, var(--el) 30%, transparent));
 }
 
-.persona-card__art img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
+.persona-card__art svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
   animation: persona-bob 5.5s ease-in-out infinite;
+}
+
+/* Eyes: a low resting glow that ramps to full on hover/focus — the
+   "the creature notices you" beat that plays before the flip. */
+.persona-card .creature-eyes {
+  opacity: 0.45;
+  transition: opacity 180ms ease;
+}
+.persona-card:hover .creature-eyes,
+.persona-card:focus-visible .creature-eyes {
+  opacity: 1;
 }
 
 @keyframes persona-bob {
@@ -698,6 +717,7 @@ html { scrollbar-width: thin; scrollbar-color: var(--kq-opal-rim) var(--kq-obsid
   left: 12px;
   right: 12px;
   bottom: 12px;
+  z-index: 4;
   padding: 10px 12px;
   border-radius: 9px;
   background: rgba(4, 22, 15, 0.72);
@@ -731,6 +751,7 @@ html { scrollbar-width: thin; scrollbar-color: var(--kq-opal-rim) var(--kq-obsid
   position: absolute;
   top: 14px;
   right: 14px;
+  z-index: 4;
   padding: 4px 9px;
   border-radius: 999px;
   font-family: var(--font-ui);
@@ -747,6 +768,7 @@ html { scrollbar-width: thin; scrollbar-color: var(--kq-opal-rim) var(--kq-obsid
 .persona-card__back-scroll {
   position: absolute;
   inset: 24px 20px 40px 20px;
+  z-index: 4;
   display: flex;
   flex-direction: column;
 }
@@ -795,6 +817,7 @@ html { scrollbar-width: thin; scrollbar-color: var(--kq-opal-rim) var(--kq-obsid
   bottom: 12px;
   left: 0;
   right: 0;
+  z-index: 4;
   text-align: center;
   font-family: var(--font-ui);
   font-size: 9px;
@@ -852,6 +875,7 @@ html { scrollbar-width: thin; scrollbar-color: var(--kq-opal-rim) var(--kq-obsid
 @media (prefers-reduced-motion: reduce) {
   .persona-card__inner,
   .wildcard-chip__inner { transition: none; }
-  .persona-card__art img { animation: none; }
+  .persona-card__art svg { animation: none; }
+  .persona-card .creature-eyes { opacity: 0.8; }
 }
 

@@ -95,18 +95,22 @@ settled in this session were preserved over Kimi's older versions of the same fi
   `.credential-pill`/`.credential-marquee` in `index.css`) is what's live, not a
   quieter static alternative that was tried earlier in the same session and then
   superseded by this instruction.
-- **`PersonaCards`** (`src/components/motion/PersonaCards.tsx` + the
-  `wood-carve`/`.persona-card*`/`.wildcard-chip*` CSS + `creature-*.png` in
-  `public/images/`) — a flip-card "creature" metaphor for the four "Who This Is
-  For" student personas, now wired into Home's "Who This Is For" section
-  (replacing the old plain 4-card grid, which is no longer used anywhere).
-  Originally Pokémon-flavored; the "Pikachu energy" / "Charmander spirit" / etc.
-  lines are renamed to plain elemental descriptions per Michael's note. The
-  deeper redesign he originally asked for on the Kimi chat — an explicit
-  eyes-glow-on-hover-before-flip effect (the source art already has
-  element-colored eyes baked in, so the glow rim on the card border currently
-  does similar work) — has not been separately built; revisit if he asks for it
-  specifically after seeing the live version.
+- **`PersonaCards`** — the flip-card "creature" metaphor for the four "Who This
+  Is For" student personas, live on Home. **The creatures are now original
+  hand-built SVG** (`src/components/motion/CreatureSprite.tsx`), NOT the old
+  Kimi wood-carved PNGs (those `creature-*.png` files are deleted). Four
+  elemental "spirits" — Spark (electric/gold), Ember (fire/coral), Sprout
+  (leaf/green), Tide (water/blue) — carved-obsidian gem bodies with a luminous
+  opal core, tuned to the palette. `CreatureSprite.tsx` also exports `CardFrame`,
+  an ornate Hearthstone-style beveled-metal frame (corner gems, top element
+  crest, bottom flourish). Went SVG specifically so the EYES can glow
+  independently on hover a beat before the flip — driven by the `.creature-eyes`
+  group in `index.css` (resting opacity 0.45 → 1 on hover) plus a
+  `transition-delay` on the hover flip so the glow reads first. Art was
+  iterated in a throwaway `file://` HTML harness (render → screenshot → refine)
+  before porting the validated SVG strings into the component. To tweak a
+  creature, edit the path data in `CreatureSprite.tsx`; the `.wildcard-chip`
+  ("none of these?") still uses the older `.wood-carve` background.
 - Category icons + Sparkles badges on Services/Advisory, the icon-less
   wheel-scrollable filter bar on Services, and the Barton-Springs-successor
   backdrop images (`green-valley.jpg`, `forest-lake.jpg`, `artifact-prism.jpg`,

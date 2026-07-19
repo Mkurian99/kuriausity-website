@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, RotateCw } from "lucide-react";
+import CreatureSprite, { CardFrame } from "@/components/motion/CreatureSprite";
 
 interface Persona {
   id: string;
   title: string;
   spirit: string; // the creature-spirit subtitle
-  img: string;
   element: string; // elemental glow color
   elementName: string;
   desc: string; // primary persona description
@@ -19,7 +19,6 @@ const PERSONAS: Persona[] = [
     id: "spark",
     title: "The Spark",
     spirit: "Electric current",
-    img: "/images/creature-spark.png",
     element: "#FBBF24",
     elementName: "Electric",
     desc: "The energetic kid with ADHD-related learning differences — boundless passion and energy that just needs a system built for how their mind actually runs.",
@@ -31,8 +30,7 @@ const PERSONAS: Persona[] = [
     id: "ember",
     title: "The Ember",
     spirit: "Living flame",
-    img: "/images/creature-ember.png",
-    element: "#F87171",
+    element: "#FB7185",
     elementName: "Fire",
     desc: "The bright rapscallion — adventurous, allergic to systems and discipline, and too clever for the structures built to contain them.",
     legacyTitle: "The Capable Underperformer",
@@ -43,7 +41,6 @@ const PERSONAS: Persona[] = [
     id: "sprout",
     title: "The Sprout",
     spirit: "Rooted growth",
-    img: "/images/creature-sprout.png",
     element: "#4ADE80",
     elementName: "Leaf",
     desc: "The shy kid with special interests — deep talent and intrigue waiting to come out of its shell and be offered to the world.",
@@ -55,7 +52,6 @@ const PERSONAS: Persona[] = [
     id: "tide",
     title: "The Tide",
     spirit: "Steady current",
-    img: "/images/creature-tide.png",
     element: "#38BDF8",
     elementName: "Water",
     desc: "The go-with-the-flow prodigy — internally motivated and genuinely talented, but struggles to stay disciplined and orderly.",
@@ -86,11 +82,11 @@ function PersonaCard({ p }: { p: Persona }) {
       }}
     >
       <div className="persona-card__inner">
-        {/* ══ Front — the emerald wood carving ══ */}
-        <div className="persona-card__face persona-card__front wood-carve">
-          <div className="persona-card__frame" />
+        {/* ══ Front — the elemental spirit in its collectible frame ══ */}
+        <div className="persona-card__face persona-card__front">
+          <CardFrame id={p.id} el={p.element} />
           <div className="persona-card__art">
-            <img src={p.img} alt={`${p.title} — carved wooden creature`} loading="lazy" />
+            <CreatureSprite id={p.id} el={p.element} />
           </div>
           <div className="persona-card__plate">
             <span className="persona-card__title">{p.title}</span>
@@ -100,8 +96,8 @@ function PersonaCard({ p }: { p: Persona }) {
         </div>
 
         {/* ══ Back — the persona ══ */}
-        <div className="persona-card__face persona-card__back wood-carve">
-          <div className="persona-card__frame" />
+        <div className="persona-card__face persona-card__back">
+          <CardFrame id={p.id} el={p.element} />
           <div className="persona-card__back-scroll">
             <p className="persona-card__back-title">{p.title}</p>
             <p className="persona-card__back-desc">{p.desc}</p>
