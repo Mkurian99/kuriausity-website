@@ -204,12 +204,12 @@ export default function About() {
         </div>
       </section>
 
-      {/* ========== VALUES - Kerry at Rice Background ========== */}
+      {/* ========== VALUES - reef aerial background ========== */}
       <section className="section relative overflow-hidden" style={{ background: "var(--kq-obsidian)" }}>
-        {/* Secretary Kerry at Rice campus background */}
+        {/* Aerial reef atolls — abstract emerald-on-obsidian */}
         <div
-          className="absolute inset-0 bg-cover bg-center opacity-[0.08]"
-          style={{ backgroundImage: "url(/images/kerry-campus.jpg)" }}
+          className="absolute inset-0 bg-cover bg-center opacity-[0.10]"
+          style={{ backgroundImage: "url(/images/reef-aerial.jpg)" }}
         />
         {/* Fade overlays */}
         <div

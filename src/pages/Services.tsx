@@ -190,8 +190,12 @@ export default function Services() {
   return (
     <div style={{ paddingTop: "72px" }}>
       {/* ═══════════════════ HEADER ═══════════════════ */}
-      <section className="section text-center" style={{ background: "var(--kq-opal-mid)" }}>
-        <div className="container">
+      <section className="section text-center relative overflow-hidden" style={{ background: "var(--kq-opal-mid)" }}>
+        {/* Ethiopian black-opal gem — emerald fire on dark */}
+        <div className="absolute inset-0 bg-cover bg-center opacity-[0.12]" style={{ backgroundImage: "url(/images/emerald-opal-gem.jpg)" }} />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to right, var(--kq-opal-mid) 0%, transparent 28%, transparent 72%, var(--kq-opal-mid) 100%)" }} />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, var(--kq-opal-mid) 0%, transparent 20%, transparent 80%, var(--kq-opal-mid) 100%)" }} />
+        <div className="container relative z-10">
           <p className="eyebrow mb-4">Services</p>
           <h1
             style={{
@@ -201,11 +205,11 @@ export default function Services() {
               fontSize: "clamp(2.2rem, 5vw, 3.625rem)",
             }}
           >
-            Built for{" "}
-            <em style={{ color: "var(--kq-em-light)" }}>thinkers</em>, not test-takers.
+            To ace the test, become a{" "}
+            <em style={{ color: "var(--kq-em-light)" }}>thinker</em>.
           </h1>
           <p className="subheadline max-w-2xl mx-auto mt-4" style={{ color: "var(--kq-text-muted)" }}>
-            From ongoing one-on-one tutoring to immersive 90-day courses to structured advisory consultations — every service is grounded in how the brain actually learns.
+            From ongoing one-on-one tutoring to immersive 90-day courses, every service is pedagogical bliss.
           </p>
         </div>
       </section>
@@ -219,7 +223,6 @@ export default function Services() {
 
         <div className="container relative z-10">
           <div ref={addRevealRef} className="reveal text-center mb-12">
-            <p className="eyebrow mb-4">Monthly Tutoring</p>
             <h2
               style={{
                 fontFamily: "var(--font-display)",
@@ -231,7 +234,7 @@ export default function Services() {
               <em style={{ color: "var(--kq-em-light)" }}>K-12 Tutoring</em>.
             </h2>
             <p className="subheadline max-w-2xl mx-auto mt-4" style={{ color: "var(--kq-text-muted)" }}>
-              Core subject support with built-in executive function coaching. Every session includes the organizational systems and focus techniques from the Executive Function program — because most students don't need more content, they need better structure.
+              Core subject support with built-in disciplinary practices. Every session includes organizational systems and focus techniques built around archetypal psychology, not more busy work.
             </p>
           </div>
 
@@ -250,7 +253,7 @@ export default function Services() {
                   <Users size={22} />
                 </div>
                 <div>
-                  <span className="eyebrow" style={{ color: "var(--kq-em-mid)" }}>Intensive</span>
+                  <span className="eyebrow" style={{ color: "var(--kq-em-mid)" }}>Standard</span>
                   <h3 className="text-lg" style={{ fontFamily: "var(--font-display)", color: "var(--kq-em-pale)", marginBottom: 0 }}>
                     2 Sessions Weekly
                   </h3>
@@ -270,6 +273,7 @@ export default function Services() {
               <ul className="space-y-3 mb-6">
                 {[
                   "Two 2-hour sessions per week (8 hrs/mo)",
+                  "Long-term specialized help on your focus areas",
                   "Math Foundations through pre-calculus",
                   "Reading Comprehension & Critical Analysis",
                   "Essay Writing & Argumentation",
@@ -302,7 +306,7 @@ export default function Services() {
                   <Clock size={22} />
                 </div>
                 <div>
-                  <span className="eyebrow" style={{ color: "var(--kq-em-mid)" }}>Standard</span>
+                  <span className="eyebrow" style={{ color: "var(--kq-em-mid)" }}>Practicum</span>
                   <h3 className="text-lg" style={{ fontFamily: "var(--font-display)", color: "var(--kq-em-pale)", marginBottom: 0 }}>
                     1 Session Weekly
                   </h3>
@@ -345,15 +349,15 @@ export default function Services() {
 
       {/* ═══════════════════ 90-DAY COURSES ═══════════════════ */}
       <section className="section relative overflow-hidden" style={{ background: "var(--kq-opal-mid)" }}>
-        {/* Green valley backdrop is visible behind the intro banner, then fades
+        {/* Malachite swirl backdrop is visible behind the intro banner, then fades
             to fully covered by the third row of course cards — a banner accent,
             not a backdrop for the whole grid. */}
         <div
-          className="absolute inset-0 bg-no-repeat opacity-[0.24]"
+          className="absolute inset-0 bg-no-repeat opacity-[0.22]"
           style={{
-            backgroundImage: "url(/images/green-valley.jpg)",
-            backgroundSize: "auto 150%",
-            backgroundPosition: "center 30%",
+            backgroundImage: "url(/images/malachite-swirl.jpg)",
+            backgroundSize: "cover",
+            backgroundPosition: "center 20%",
           }}
         />
         <div
@@ -379,7 +383,7 @@ export default function Services() {
               <em style={{ color: "var(--kq-em-light)" }}>permanent transformation</em>.
             </h2>
             <p className="subheadline max-w-2xl mx-auto mt-4" style={{ color: "var(--kq-text-muted)" }}>
-              Each course is a structured 90-day (or 120-day) engagement designed to rewire how your student thinks — not just improve their grades.
+              Each course is a structured 90 or 120 day engagement designed to impart very specific and portable skills, increasing a student's capacity for critical thinking and exceptional scores.
             </p>
           </div>
 
@@ -485,21 +489,33 @@ export default function Services() {
 
       {/* ═══════════════════ ADVISORY SERVICES ═══════════════════ */}
       <section className="section relative overflow-hidden" style={{ background: "var(--kq-obsidian)" }}>
-        {/* Black opal background — dark iridescent texture */}
-        <div className="absolute inset-0 bg-cover bg-center opacity-[0.08]" style={{ backgroundImage: "url(/images/opal.jpg)" }} />
+        {/* Iridescent opal background */}
+        <div className="absolute inset-0 bg-cover bg-center opacity-[0.10]" style={{ backgroundImage: "url(/images/opal-holo.jpg)" }} />
         <div className="absolute inset-0" style={{ background: "linear-gradient(to right, var(--kq-obsidian) 0%, transparent 25%, transparent 75%, var(--kq-obsidian) 100%)" }} />
         <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, var(--kq-obsidian) 0%, transparent 15%, transparent 85%, var(--kq-obsidian) 100%)" }} />
 
         <div className="container relative z-10">
-          <div ref={addRevealRef} className="reveal text-center mb-12">
-            <div
-              className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full"
-              style={{ background: "rgba(124,58,237,0.14)" }}
+          {/* Whole strip links to the Advisory page (the button below still works too) */}
+          <Link
+            to="/advisory"
+            ref={addRevealRef}
+            className="advisory-teaser reveal block text-center mb-12"
+            style={{ textDecoration: "none", color: "inherit" }}
+            aria-label="Explore the Pre-Mortem Advisory service"
+          >
+            <p
+              style={{
+                fontFamily: "var(--font-display)",
+                fontStyle: "italic",
+                fontWeight: 500,
+                fontSize: "clamp(1.05rem, 1.7vw, 1.4rem)",
+                letterSpacing: "0.06em",
+                color: "var(--kq-violet-soft)",
+                marginBottom: "0.85rem",
+              }}
             >
-              <span style={{ fontFamily: "var(--font-ui)", fontSize: "11px", fontWeight: 600, color: "var(--kq-violet-soft)", letterSpacing: "0.12em", textTransform: "uppercase" }}>
-                Advisory Services
-              </span>
-            </div>
+              Pre-Mortem Advisory
+            </p>
             <h2
               style={{
                 fontFamily: "var(--font-display)",
@@ -512,9 +528,26 @@ export default function Services() {
               that require a rigorous mind.
             </h2>
             <p className="subheadline max-w-2xl mx-auto mt-4" style={{ color: "var(--kq-text-muted)" }}>
-              The Pre-Mortem Advisory Service is the output of an extreme and deep research process — one week of investigation for a Single Session, two weeks for a Full Engagement — that produces a storehouse of data on your situation, your industry, your competitive landscape, and every plausible failure mode. The session itself is where that research is delivered, stress-tested, and turned into action.
+              Before you commit capital, reputation, or a year of your roadmap, we run one to two weeks of independent, graduate-level research into your situation, your industry, your competitive landscape, and every plausible failure mode. You receive a decision-ready briefing and a live working session where your strategy is stress-tested, so you move forward with conviction and a clear plan.
             </p>
-          </div>
+            <span
+              className="advisory-teaser__cue"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "6px",
+                marginTop: "1.25rem",
+                fontFamily: "var(--font-ui)",
+                fontSize: "12px",
+                fontWeight: 600,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: "var(--kq-violet-soft)",
+              }}
+            >
+              Explore the Advisory Service <ArrowRight size={14} />
+            </span>
+          </Link>
         </div>
       </section>
 

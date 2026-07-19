@@ -46,10 +46,12 @@ function defs(id: string, el: string, bodyAlpha: number): string {
   </defs>`;
 }
 
-function eyes(id: string, cy: number, rx: number, ry: number): string {
+function eyes(id: string, el: string, cy: number, rx: number, ry: number): string {
   const cx1 = 100;
   const cx2 = 140;
   return `
+    <path d="M${cx1 - 11},${cy - 13} Q${cx1},${cy - 19} ${cx1 + 11},${cy - 12}" stroke="${el}" stroke-opacity="0.32" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    <path d="M${cx2 - 11},${cy - 12} Q${cx2},${cy - 19} ${cx2 + 11},${cy - 13}" stroke="${el}" stroke-opacity="0.32" stroke-width="1.8" fill="none" stroke-linecap="round"/>
     <g class="creature-eyes">
       <circle cx="${cx1}" cy="${cy}" r="24" fill="url(#${id}-glow)"/>
       <circle cx="${cx2}" cy="${cy}" r="24" fill="url(#${id}-glow)"/>
@@ -81,6 +83,8 @@ function body(id: string, el: string): string {
     <ellipse cx="180" cy="158" rx="10" ry="14" fill="url(#${id}-body)" stroke="${el}" stroke-opacity="0.3" stroke-width="1.1" transform="rotate(-18 180 158)"/>
     <path d="${BODY_PATH}" fill="url(#${id}-body)" stroke="${el}" stroke-opacity="0.5" stroke-width="1.6"/>
     <ellipse cx="120" cy="168" rx="30" ry="27" fill="url(#${id}-core)"/>
+    <path d="M101,166 C101,153 139,153 139,166 C139,189 128,201 120,201 C112,201 101,189 101,166 Z" fill="url(#${id}-core)" opacity="0.20" stroke="${el}" stroke-opacity="0.20" stroke-width="1"/>
+    <path d="M108,173 Q120,179 132,173" stroke="${el}" stroke-opacity="0.20" stroke-width="1.1" fill="none"/>
     <path d="M158,92 C174,112 179,134 176,158" stroke="url(#${id}-rim)" stroke-width="3.4" fill="none" stroke-linecap="round"/>
     <ellipse cx="93" cy="98" rx="15" ry="9" fill="#ffffff" opacity="0.16" transform="rotate(-32 93 98)"/>
     <circle cx="86" cy="140" r="6" fill="${el}" opacity="0.28"/>
@@ -151,7 +155,7 @@ function creatureMarkup(id: string, el: string): string {
     f.behind +
     body(id, el) +
     f.front +
-    eyes(id, ex.cy, ex.rx, ex.ry)
+    eyes(id, el, ex.cy, ex.rx, ex.ry)
   );
 }
 
@@ -169,6 +173,21 @@ export default function CreatureSprite({ id, el }: { id: string; el: string }) {
 /* ── Ornate collectible frame: beveled metal border + corner gems + a top
       element crest + bottom flourish. viewBox matches the 5:7 card so it
       scales without distortion. ── */
+function crestEmblem(id: string, el: string): string {
+  switch (id) {
+    case "spark":
+      return `<path d="M-3,-5 L5,-5 L0,4 L6,4 L-5,17 L-1,6 L-7,6 Z" fill="${el}" stroke="#0B1220" stroke-opacity="0.35" stroke-width="0.6" stroke-linejoin="round"/>`;
+    case "ember":
+      return `<path d="M0,-6 C-6,2 -5,11 0,17 C5,11 6,2 0,-6 Z" fill="${el}"/><path d="M0,3 C-2,6 -2,10 0,13 C2,10 2,6 0,3 Z" fill="#fff" fill-opacity="0.45"/>`;
+    case "sprout":
+      return `<path d="M0,-6 C8,-3 9,9 1,17 C-3,9 -7,1 0,-6 Z" fill="${el}"/><path d="M1,-2 L1,14" stroke="#0B1220" stroke-opacity="0.3" stroke-width="0.9"/>`;
+    case "tide":
+      return `<path d="M-11,16 C-11,0 11,0 11,16 Z" fill="${el}"/><g stroke="#0B1220" stroke-opacity="0.3" stroke-width="0.9" fill="none"><path d="M0,16 L0,2"/><path d="M0,16 L-6,4"/><path d="M0,16 L6,4"/></g>`;
+    default:
+      return "";
+  }
+}
+
 function frameMarkup(id: string, el: string): string {
   return `
     <defs>
@@ -192,10 +211,10 @@ function frameMarkup(id: string, el: string): string {
       <circle cx="18" cy="18" r="4.5"/><circle cx="282" cy="18" r="4.5"/>
       <circle cx="18" cy="402" r="4.5"/><circle cx="282" cy="402" r="4.5"/>
     </g>
-    <g transform="translate(150,9)">
-      <path d="M-26,5 L0,-7 L26,5 L0,17 Z" fill="url(#${id}-metal)" stroke="${el}" stroke-opacity="0.7" stroke-width="1.5"/>
-      <path d="M-10,5 L0,-1 L10,5 L0,11 Z" fill="${el}" fill-opacity="0.9"/>
-      <path d="M-10,5 L0,1 L10,5 L0,3 Z" fill="#fff" fill-opacity="0.4"/>
+    <g transform="translate(150,11)">
+      <circle cx="0" cy="5" r="16" fill="url(#${id}-metal)" stroke="${el}" stroke-opacity="0.7" stroke-width="1.5"/>
+      <circle cx="0" cy="5" r="16" fill="none" stroke="#fff" stroke-opacity="0.12" stroke-width="0.8"/>
+      ${crestEmblem(id, el)}
     </g>
     <g transform="translate(150,411)">
       <path d="M-18,0 L0,7 L18,0" fill="none" stroke="${el}" stroke-opacity="0.5" stroke-width="1.6"/>

@@ -406,6 +406,12 @@
 
 .credential-pill + .credential-pill { border-left: 1px solid rgba(255,255,255,0.08); }
 
+/* Advisory teaser — whole strip is a link to /advisory */
+.advisory-teaser { cursor: pointer; transition: transform 300ms cubic-bezier(.22,1,.36,1); }
+.advisory-teaser:hover { transform: translateY(-3px); }
+.advisory-teaser__cue { transition: color 200ms ease, opacity 200ms ease; opacity: 0.85; }
+.advisory-teaser:hover .advisory-teaser__cue { color: var(--kq-em-pale); opacity: 1; }
+
 /* ═══════════════════════════════════════════════════════════════════
    ELITE MOTION SYSTEM — additive design layer (no content changes)
    ═══════════════════════════════════════════════════════════════════ */

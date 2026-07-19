@@ -400,8 +400,12 @@ export default function Courses() {
   return (
     <div style={{ paddingTop: "72px" }}>
       {/* ═══════════════ HEADER ═══════════════ */}
-      <section className="section text-center" style={{ background: "var(--kq-opal-mid)" }}>
-        <div className="container">
+      <section className="section text-center relative overflow-hidden" style={{ background: "var(--kq-opal-mid)" }}>
+        {/* Iridescent crystal — opal fire on dark */}
+        <div className="absolute inset-0 bg-cover bg-center opacity-[0.16]" style={{ backgroundImage: "url(/images/crystal-holo.jpg)" }} />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to right, var(--kq-opal-mid) 0%, transparent 28%, transparent 72%, var(--kq-opal-mid) 100%)" }} />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, var(--kq-opal-mid) 0%, transparent 22%, transparent 78%, var(--kq-opal-mid) 100%)" }} />
+        <div className="container relative z-10">
           <p className="eyebrow mb-4">Courses</p>
           <h1
             style={{
@@ -423,10 +427,10 @@ export default function Courses() {
 
       {/* ═══════════════ COURSE LIST ═══════════════ */}
       <section className="section relative overflow-hidden" style={{ background: "var(--kq-obsidian)" }}>
-        {/* Decision tree pattern background */}
-        <div className="absolute inset-0 bg-cover bg-center opacity-[0.04]" style={{ backgroundImage: "url(/images/premortem.jpg)" }} />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(to right, var(--kq-obsidian) 0%, transparent 20%, transparent 80%, var(--kq-obsidian) 100%)" }} />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, var(--kq-obsidian) 0%, transparent 10%, transparent 90%, var(--kq-obsidian) 100%)" }} />
+        {/* Tropical shore — held across the whole list, fades out late (only near the bottom) */}
+        <div className="absolute inset-0 bg-cover bg-center opacity-[0.11]" style={{ backgroundImage: "url(/images/tropical-shore.jpg)" }} />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to right, var(--kq-obsidian) 0%, transparent 22%, transparent 78%, var(--kq-obsidian) 100%)" }} />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, var(--kq-obsidian) 0%, transparent 6%, transparent 82%, var(--kq-obsidian) 100%)" }} />
 
         <div className="container max-w-5xl relative z-10">
           {courseDetails.map((course) => (

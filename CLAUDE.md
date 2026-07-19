@@ -106,7 +106,10 @@ settled in this session were preserved over Kimi's older versions of the same fi
   crest, bottom flourish). Went SVG specifically so the EYES can glow
   independently on hover a beat before the flip — driven by the `.creature-eyes`
   group in `index.css` (resting opacity 0.45 → 1 on hover) plus a
-  `transition-delay` on the hover flip so the glow reads first. Art was
+  `transition-delay` on the hover flip so the glow reads first. Each frame's top
+  crest is an element emblem (bolt/flame/leaf/shell via `crestEmblem()`), and the
+  creatures carry light organic detail (brow ridges + a segmented belly plate)
+  over the gem scaffold. Art was
   iterated in a throwaway `file://` HTML harness (render → screenshot → refine)
   before porting the validated SVG strings into the component. To tweak a
   creature, edit the path data in `CreatureSprite.tsx`; the `.wildcard-chip`
