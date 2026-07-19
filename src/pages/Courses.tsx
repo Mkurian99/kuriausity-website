@@ -427,8 +427,8 @@ export default function Courses() {
 
       {/* ═══════════════ COURSE LIST ═══════════════ */}
       <section className="section relative overflow-hidden" style={{ background: "var(--kq-obsidian)" }}>
-        {/* Tropical shore — held across the whole list, fades out late (only near the bottom) */}
-        <div className="absolute inset-0 bg-cover bg-center opacity-[0.11]" style={{ backgroundImage: "url(/images/tropical-shore.jpg)" }} />
+        {/* Iridescent opal (high-res) — held across the whole list, fades out late (only near the bottom) */}
+        <div className="absolute inset-0 bg-cover bg-center opacity-[0.11]" style={{ backgroundImage: "url(/images/opal-holo-blue.jpg)" }} />
         <div className="absolute inset-0" style={{ background: "linear-gradient(to right, var(--kq-obsidian) 0%, transparent 22%, transparent 78%, var(--kq-obsidian) 100%)" }} />
         <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, var(--kq-obsidian) 0%, transparent 6%, transparent 82%, var(--kq-obsidian) 100%)" }} />
 
