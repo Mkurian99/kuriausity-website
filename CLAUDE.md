@@ -96,24 +96,26 @@ settled in this session were preserved over Kimi's older versions of the same fi
   quieter static alternative that was tried earlier in the same session and then
   superseded by this instruction.
 - **`PersonaCards`** — the flip-card "creature" metaphor for the four "Who This
-  Is For" student personas, live on Home. **The creatures are now original
-  hand-built SVG** (`src/components/motion/CreatureSprite.tsx`), NOT the old
-  Kimi wood-carved PNGs (those `creature-*.png` files are deleted). Four
-  elemental "spirits" — Spark (electric/gold), Ember (fire/coral), Sprout
-  (leaf/green), Tide (water/blue) — carved-obsidian gem bodies with a luminous
-  opal core, tuned to the palette. `CreatureSprite.tsx` also exports `CardFrame`,
-  an ornate Hearthstone-style beveled-metal frame (corner gems, top element
-  crest, bottom flourish). Went SVG specifically so the EYES can glow
-  independently on hover a beat before the flip — driven by the `.creature-eyes`
-  group in `index.css` (resting opacity 0.45 → 1 on hover) plus a
-  `transition-delay` on the hover flip so the glow reads first. Each frame's top
-  crest is an element emblem (bolt/flame/leaf/shell via `crestEmblem()`), and the
-  creatures carry light organic detail (brow ridges + a segmented belly plate)
-  over the gem scaffold. Art was
-  iterated in a throwaway `file://` HTML harness (render → screenshot → refine)
-  before porting the validated SVG strings into the component. To tweak a
-  creature, edit the path data in `CreatureSprite.tsx`; the `.wildcard-chip`
-  ("none of these?") still uses the older `.wood-carve` background.
+  Is For" student personas, live on Home. **Front art is now four illustrated
+  PNG figures** at `public/images/personas/{electric,fire,leaf,water}.png`
+  (transparent RGBA, ~1254×1254) — Spark (electric/gold hamster), Ember
+  (fire/coral dragon), Sprout (leaf/green sprout), Tide (water/blue droplet-pup).
+  These replaced the earlier hand-built SVG creatures (2026-07-19, Michael
+  supplied the new figures). The SVG version still lives in
+  `src/components/motion/CreatureSprite.tsx` (its default `CreatureSprite` export
+  is now unused but kept in case of revert); **`CardFrame` from that same file is
+  still used** — the ornate Hearthstone-style beveled-metal frame (corner gems,
+  top element crest via `crestEmblem()`, bottom flourish) is unchanged. The
+  per-card **element chip/tag** ("Electric"/"Fire"/"Leaf"/"Water" pill,
+  `.persona-card__chip`) was **removed** from the front face this same pass —
+  the CSS rule remains but is no longer rendered. Note the eye-glow-on-hover
+  beat (`.creature-eyes` in `index.css`) only affected the SVG creatures, so it's
+  inert now that the fronts are raster PNGs. `.persona-card__art img` in
+  `index.css` gives the figures `object-fit: contain` + the shared bob animation.
+  The `.wildcard-chip` ("none of these?") still uses the older `.wood-carve`
+  background. To swap a figure, drop a new transparent PNG into
+  `public/images/personas/` and point the matching `img` path in
+  `PersonaCards.tsx` at it.
 - Category icons + Sparkles badges on Services/Advisory, the icon-less
   wheel-scrollable filter bar on Services, and the Barton-Springs-successor
   backdrop images (`green-valley.jpg`, `forest-lake.jpg`, `artifact-prism.jpg`,
