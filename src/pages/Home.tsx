@@ -286,7 +286,7 @@ export default function Home() {
                   {
                     mark: "III",
                     title: "Communication as Master Skill",
-                    desc: "From debate to essays to executive function — we teach students to think clearly and express those thoughts effectively.",
+                    desc: "From debate to essays to executive function, we teach students to think clearly and express those thoughts effectively.",
                   },
                 ].map((card, i) => (
                   <div

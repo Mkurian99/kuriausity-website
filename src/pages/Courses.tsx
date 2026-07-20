@@ -419,18 +419,22 @@ export default function Courses() {
             <em style={{ color: "var(--kq-em-light)" }}>in full detail</em>.
           </h1>
           <p className="subheadline max-w-2xl mx-auto mt-4" style={{ color: "var(--kq-text-muted)" }}>
-            Sixteen immersive programs built on the cognitive science of how humans actually learn.
-            Select a course to explore its curriculum, outcomes, and enrollment options.
+            Sixteen programs tweaked around your personal learning style. You don't need private
+            schools or co-ops to access an elite classical education or test prep.
           </p>
         </div>
       </section>
 
       {/* ═══════════════ COURSE LIST ═══════════════ */}
       <section className="section relative overflow-hidden" style={{ background: "var(--kq-obsidian)" }}>
-        {/* Iridescent opal (high-res) — held across the whole list, fades out late (only near the bottom) */}
-        <div className="absolute inset-0 bg-cover bg-center opacity-[0.11]" style={{ backgroundImage: "url(/images/opal-holo-blue.jpg)" }} />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(to right, var(--kq-obsidian) 0%, transparent 22%, transparent 78%, var(--kq-obsidian) 100%)" }} />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, var(--kq-obsidian) 0%, transparent 6%, transparent 82%, var(--kq-obsidian) 100%)" }} />
+        {/* Emerald swirl backdrop — capped to a fixed zone at the top of the list (not stretched across
+            all 16 cards) so the photo reads at something close to its natural scale: clearly apparent
+            behind the opening cards, then fading to plain obsidian by the halfway point of that zone. */}
+        <div className="absolute inset-x-0 top-0 overflow-hidden" style={{ height: "170vh" }}>
+          <div className="absolute inset-0 bg-cover bg-center opacity-[0.4]" style={{ backgroundImage: "url(/images/emerald-swirl-courses.jpg)" }} />
+          <div className="absolute inset-0" style={{ background: "linear-gradient(to right, var(--kq-obsidian) 0%, transparent 22%, transparent 78%, var(--kq-obsidian) 100%)" }} />
+          <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, var(--kq-obsidian) 0%, transparent 8%, transparent 50%, var(--kq-obsidian) 100%)" }} />
+        </div>
 
         <div className="container max-w-5xl relative z-10">
           {courseDetails.map((course) => (
